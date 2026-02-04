@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ControlsPanel from "./components/ControlsPanel";
 import HandsPanel from "./components/HandsPanel";
+import KifuPanel from "./components/KifuPanel";
 import PromotionModal from "./components/PromotionModal";
 import SettingsPanel from "./components/SettingsPanel";
 import ShogiBoard from "./components/ShogiBoard";
@@ -38,6 +39,15 @@ const createInitialState = () => ({
   } | null,
   winner: null as Owner | null,
   lastMove: null as Move | null,
+  moveHistory: [] as {
+    owner: Owner;
+    pieceType: PieceType;
+    promoted: boolean;
+    isDrop: boolean;
+    to: { r: number; c: number };
+    promotion: Move["promotion"];
+    optionalPromotion: boolean;
+  }[],
 });
 
 export default function Home() {
@@ -55,6 +65,17 @@ export default function Home() {
   } | null>(null);
   const [winner, setWinner] = useState<Owner | null>(null);
   const [lastMove, setLastMove] = useState<Move | null>(null);
+  const [moveHistory, setMoveHistory] = useState<
+    {
+      owner: Owner;
+      pieceType: PieceType;
+      promoted: boolean;
+      isDrop: boolean;
+      to: { r: number; c: number };
+      promotion: Move["promotion"];
+      optionalPromotion: boolean;
+    }[]
+  >([]);
   const [aiThinking, setAiThinking] = useState(false);
   const aiThinkingRef = useRef(false);
   const [aiDepth, setAiDepth] = useState(5);
@@ -82,6 +103,7 @@ export default function Home() {
     setPendingPromotion(next.pendingPromotion);
     setWinner(next.winner);
     setLastMove(next.lastMove);
+    setMoveHistory(next.moveHistory);
     setAiThinking(false);
     aiThinkingRef.current = false;
   };
@@ -117,6 +139,26 @@ export default function Home() {
       setLegalMoves([]);
       setPendingPromotion(null);
       setLastMove(move);
+      const movedPiece = move.drop
+        ? null
+        : board[move.from?.r ?? -1]?.[move.from?.c ?? -1];
+      const pieceType = move.drop ?? movedPiece?.type;
+      if (pieceType) {
+        const promoted = move.promotion === "must" ? true : !!movedPiece?.promoted;
+        const optionalPromotion = !move.drop && move.promotion === "optional";
+        setMoveHistory((prev) => [
+          ...prev,
+          {
+            owner,
+            pieceType,
+            promoted,
+            isDrop: !!move.drop,
+            to: move.to,
+            promotion: move.promotion,
+            optionalPromotion,
+          },
+        ]);
+      }
       const opponent: Owner = owner === "b" ? "w" : "b";
       const opponentKing = findKing(nextBoard, opponent);
       const opponentMoves = buildLegalMoves(nextBoard, nextHands, opponent);
@@ -193,6 +235,11 @@ export default function Home() {
     if (winner || aiThinking || pendingPromotion || turn !== playerOwner)
       return;
     if (hands[turn][type] <= 0) return;
+    if (selectedDrop === type) {
+      setSelectedDrop(null);
+      setLegalMoves([]);
+      return;
+    }
     setSelected(null);
     setSelectedDrop(type);
     const drops = getLegalDropMoves(board, hands, turn).filter(
@@ -329,6 +376,7 @@ export default function Home() {
 
         <aside className="flex w-full flex-col gap-4 lg:w-72">
           <StatusPanel turn={turn} winner={winner} checkStatus={checkStatus} />
+          <KifuPanel moves={moveHistory} heightClassName="h-64" />
           <ControlsPanel
             onReset={resetGame}
             onBackToSettings={handleBackToSettings}
