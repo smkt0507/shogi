@@ -168,12 +168,12 @@ export async function POST(request: Request) {
 
   try {
     sendLine(engine, "usi");
-    await waitForMatch(rl, /^usiok/, 5000);
+    await waitForMatch(rl, /^usiok/, 15000);
     sendLine(engine, "isready");
-    await waitForMatch(rl, /^readyok/, 5000);
+    await waitForMatch(rl, /^readyok/, 15000);
     sendLine(engine, `position sfen ${sfen}`);
     sendLine(engine, `go movetime ${moveTime}`);
-    const bestLine = await waitForMatch(rl, /^bestmove\s+/, moveTime + 5000);
+    const bestLine = await waitForMatch(rl, /^bestmove\s+/, moveTime + 30000);
     const best = bestLine.split(/\s+/)[1] ?? "";
     const move = parseUsiMove(best);
     sendLine(engine, "quit");
