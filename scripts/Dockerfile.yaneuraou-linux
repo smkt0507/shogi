@@ -1,0 +1,21 @@
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  build-essential \
+  clang \
+  libomp-dev \
+  libopenblas-dev \
+  python3 \
+  ca-certificates \
+  git \
+  && rm -rf /var/lib/apt/lists/*
+
+ARG YANEURAOU_TAG=v9.10-fukauraou
+RUN git clone --depth 1 --branch ${YANEURAOU_TAG} https://github.com/yaneurao/YaneuraOu.git /src
+
+WORKDIR /src/source
+
+RUN make clean && \
+  make COMPILER=g++ YANEURAOU_EDITION=YANEURAOU_ENGINE_NNUE_KP256 TARGET_CPU=SSE2 && \
+  mkdir -p /out && \
+  cp /src/source/YaneuraOu-by-gcc /out/YaneuraOu-by-gcc
