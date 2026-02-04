@@ -37,8 +37,8 @@ export default function SettingsPage() {
   const [playerOwner, setPlayerOwner] = useState<Owner>(
     initialSettings?.playerOwner ?? "b",
   );
-  const [aiDepth, setAiDepth] = useState(initialSettings?.aiDepth ?? 5);
-  const [aiTimeMs, setAiTimeMs] = useState(initialSettings?.aiTimeMs ?? 1000);
+  const [aiDepth, setAiDepth] = useState(initialSettings?.aiDepth ?? 2);
+  const [aiTimeMs, setAiTimeMs] = useState(initialSettings?.aiTimeMs ?? 400);
 
   const handleStartGame = () => {
     localStorage.setItem(

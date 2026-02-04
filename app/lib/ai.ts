@@ -213,8 +213,9 @@ export const evaluatePosition = async (
   depth: number,
   timeMs: number,
 ) => {
-  const localScore = evaluate(board, hands);
-  const localCp = Math.round((turn === "w" ? localScore : -localScore) * 100);
+  if (process.env.NEXT_PUBLIC_EVAL_MODE === "local") {
+    return null;
+  }
 
   if (typeof window !== "undefined") {
     try {
@@ -231,7 +232,7 @@ export const evaluatePosition = async (
         }),
       });
       if (response.ok) {
-        const data = (await response.json()) as { score?: number };
+        const data = (await response.json()) as { score?: number | null };
         if (typeof data.score === "number") return data.score;
       }
     } catch {
@@ -239,5 +240,5 @@ export const evaluatePosition = async (
     }
   }
 
-  return localCp;
+  return null;
 };

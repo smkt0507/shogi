@@ -165,6 +165,13 @@ export async function POST(request: Request) {
       ? Math.min(Math.max(timeMs * Math.max(2, depthScale), 2000), 5000)
       : Math.min(timeMs * depthScale, 2000);
 
+  const usiEvalEnabled =
+    process.env.USI_EVAL_ENABLED === "true" ||
+    process.env.USI_EVAL_ENABLED === "1";
+  if (mode === "evaluate" && !usiEvalEnabled) {
+    return NextResponse.json({ score: null, disabled: true });
+  }
+
   const engineDir = path.dirname(enginePath);
   const engine = spawn(enginePath, [], {
     stdio: ["pipe", "pipe", "pipe"],
@@ -193,7 +200,10 @@ export async function POST(request: Request) {
   try {
     sendLine(engine, "usi");
     await waitForMatch(rl, /^usiok/, 8000);
-    sendLine(engine, "setoption name USI_Hash value 64");
+    sendLine(
+      engine,
+      `setoption name USI_Hash value ${mode === "evaluate" ? 16 : 64}`,
+    );
     sendLine(engine, "setoption name Threads value 1");
     sendLine(engine, "isready");
     await waitForMatch(rl, /^readyok/, 8000);

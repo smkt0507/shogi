@@ -89,6 +89,19 @@ npm run dev
 - `chooseAiMove()`: AIの指し手を選択（USI優先、失敗時ローカルAI）。
 - `evaluatePosition()`: 盤面評価を取得（USI優先、失敗時ローカル評価）。
 
+## 評価（好手/悪手）について
+
+- 差し手評価はUSIエンジンの評価値に依存します。
+- サーバーのメモリが厳しい場合は評価を無効化できます。
+
+無効化方法（Renderなど）:
+
+```bash
+USI_EVAL_ENABLED=0
+```
+
+この場合、棋譜の色分けは行われません。
+
 ## 主要なコンポーネント
 
 コンポーネントは [app/components](app/components) にあります。

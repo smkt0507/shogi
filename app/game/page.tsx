@@ -110,8 +110,8 @@ export default function GamePage() {
       return null;
     }
   })();
-  const [aiDepth] = useState(initialSettings?.aiDepth ?? 5);
-  const [aiTimeMs] = useState(initialSettings?.aiTimeMs ?? 1000);
+  const [aiDepth] = useState(initialSettings?.aiDepth ?? 2);
+  const [aiTimeMs] = useState(initialSettings?.aiTimeMs ?? 400);
   const [playerOwner] = useState<Owner>(initialSettings?.playerOwner ?? "b");
   const [settingsLoaded] = useState(Boolean(initialSettings));
   const aiOwner: Owner = playerOwner === "b" ? "w" : "b";
@@ -137,7 +137,9 @@ export default function GamePage() {
         evalDepth,
         evalTimeMs,
       );
-      evalRef.current = score;
+      if (typeof score === "number") {
+        evalRef.current = score;
+      }
     })();
   }, [settingsLoaded, aiDepth, aiTimeMs, board, hands, turn]);
 
@@ -235,6 +237,7 @@ export default function GamePage() {
             evalDepth,
             evalTimeMs,
           );
+          if (typeof scoreAfter !== "number") return;
           evalRef.current = scoreAfter;
           if (scoreBefore === null) return;
           const scoreAfterForMover = -scoreAfter;

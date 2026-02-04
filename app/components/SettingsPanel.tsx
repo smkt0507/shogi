@@ -27,7 +27,9 @@ export default function SettingsPanel({
           <div className="mb-2 text-sm font-semibold">先手/後手</div>
           <select
             value={playerOwner}
-            onChange={(event) => onPlayerOwnerChange(event.target.value as "b" | "w")}
+            onChange={(event) =>
+              onPlayerOwnerChange(event.target.value as "b" | "w")
+            }
             className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100"
           >
             <option value="b">先手（あなた）</option>
@@ -41,10 +43,10 @@ export default function SettingsPanel({
             onChange={(event) => onDepthChange(Number(event.target.value))}
             className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100"
           >
-            <option value={5}>Lv.1（深さ5）</option>
-            <option value={6}>Lv.2（深さ6）</option>
-            <option value={7}>Lv.3（深さ7）</option>
-            <option value={8}>Lv.4（深さ8）</option>
+            <option value={2}>Lv.1（深さ2）</option>
+            <option value={3}>Lv.2（深さ3）</option>
+            <option value={4}>Lv.3（深さ4）</option>
+            <option value={5}>Lv.4（深さ5）</option>
           </select>
         </div>
         <div>
@@ -54,10 +56,10 @@ export default function SettingsPanel({
             onChange={(event) => onTimeChange(Number(event.target.value))}
             className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100"
           >
-            <option value={1000}>1.0秒</option>
-            <option value={1500}>1.5秒</option>
-            <option value={2500}>2.5秒</option>
-            <option value={3500}>3.5秒</option>
+            <option value={400}>0.4秒</option>
+            <option value={800}>0.8秒</option>
+            <option value={1200}>1.2秒</option>
+            <option value={2000}>2.0秒</option>
           </select>
         </div>
       </div>
