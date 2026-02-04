@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import AiSettingsPanel from "./components/AiSettingsPanel";
 import ControlsPanel from "./components/ControlsPanel";
 import HandsPanel from "./components/HandsPanel";
 import PromotionModal from "./components/PromotionModal";
+import SettingsPanel from "./components/SettingsPanel";
 import ShogiBoard from "./components/ShogiBoard";
 import StatusPanel from "./components/StatusPanel";
 import {
@@ -37,6 +37,7 @@ const createInitialState = () => ({
     promote: boolean | null;
   } | null,
   winner: null as Owner | null,
+  lastMove: null as Move | null,
 });
 
 export default function Home() {
@@ -44,7 +45,7 @@ export default function Home() {
   const [hands, setHands] = useState<Hands>(() => emptyHands());
   const [turn, setTurn] = useState<Owner>("b");
   const [selected, setSelected] = useState<{ r: number; c: number } | null>(
-    null
+    null,
   );
   const [selectedDrop, setSelectedDrop] = useState<PieceType | null>(null);
   const [legalMoves, setLegalMoves] = useState<Move[]>([]);
@@ -53,17 +54,21 @@ export default function Home() {
     promote: boolean | null;
   } | null>(null);
   const [winner, setWinner] = useState<Owner | null>(null);
+  const [lastMove, setLastMove] = useState<Move | null>(null);
   const [aiThinking, setAiThinking] = useState(false);
   const aiThinkingRef = useRef(false);
   const [aiDepth, setAiDepth] = useState(5);
   const [aiTimeMs, setAiTimeMs] = useState(1000);
+  const [playerOwner, setPlayerOwner] = useState<Owner>("b");
+  const aiOwner: Owner = playerOwner === "b" ? "w" : "b";
+  const [screen, setScreen] = useState<"settings" | "game">("settings");
 
   const checkStatus = useMemo(
     () => ({
       b: isInCheck(board, "b"),
       w: isInCheck(board, "w"),
     }),
-    [board]
+    [board],
   );
 
   const resetGame = () => {
@@ -76,6 +81,7 @@ export default function Home() {
     setLegalMoves(next.legalMoves);
     setPendingPromotion(next.pendingPromotion);
     setWinner(next.winner);
+    setLastMove(next.lastMove);
     setAiThinking(false);
     aiThinkingRef.current = false;
   };
@@ -102,7 +108,7 @@ export default function Home() {
         board,
         hands,
         move,
-        owner
+        owner,
       );
       setBoard(nextBoard);
       setHands(nextHands);
@@ -110,6 +116,7 @@ export default function Home() {
       setSelectedDrop(null);
       setLegalMoves([]);
       setPendingPromotion(null);
+      setLastMove(move);
       const opponent: Owner = owner === "b" ? "w" : "b";
       const opponentKing = findKing(nextBoard, opponent);
       const opponentMoves = buildLegalMoves(nextBoard, nextHands, opponent);
@@ -122,11 +129,12 @@ export default function Home() {
         setTurn(opponent);
       }
     },
-    [board, hands, turn]
+    [board, hands, turn],
   );
 
   const handleSquareClick = (r: number, c: number) => {
     if (winner || aiThinking || pendingPromotion) return;
+    if (turn !== playerOwner) return;
     const piece = board[r][c];
     if (selectedDrop) {
       const key = `${r}-${c}`;
@@ -141,8 +149,20 @@ export default function Home() {
       const move = legalTargets.get(key);
       if (move) {
         if (move.promotion === "optional") {
-          const canPromote = canApplyPromotionOption(board, hands, turn, move, "must");
-          const canDecline = canApplyPromotionOption(board, hands, turn, move, "none");
+          const canPromote = canApplyPromotionOption(
+            board,
+            hands,
+            turn,
+            move,
+            "must",
+          );
+          const canDecline = canApplyPromotionOption(
+            board,
+            hands,
+            turn,
+            move,
+            "none",
+          );
           if (canPromote && canDecline) {
             setPendingPromotion({ move, promote: null });
             return;
@@ -170,12 +190,13 @@ export default function Home() {
   };
 
   const handleDropSelect = (type: PieceType) => {
-    if (winner || aiThinking || pendingPromotion || turn !== "b") return;
+    if (winner || aiThinking || pendingPromotion || turn !== playerOwner)
+      return;
     if (hands[turn][type] <= 0) return;
     setSelected(null);
     setSelectedDrop(type);
     const drops = getLegalDropMoves(board, hands, turn).filter(
-      (m) => m.drop === type
+      (m) => m.drop === type,
     );
     setLegalMoves(drops);
   };
@@ -191,14 +212,15 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (winner || turn !== "w" || aiThinkingRef.current) return;
+    if (screen !== "game") return;
+    if (winner || turn !== aiOwner || aiThinkingRef.current) return;
     aiThinkingRef.current = true;
     const timer = setTimeout(() => {
       setAiThinking(true);
       void (async () => {
         const move = await chooseAiMove(board, hands, aiDepth, aiTimeMs);
         if (move) {
-          finalizeMove(move, "w");
+          finalizeMove(move, aiOwner);
         }
         aiThinkingRef.current = false;
         setAiThinking(false);
@@ -209,66 +231,109 @@ export default function Home() {
       aiThinkingRef.current = false;
       setAiThinking(false);
     };
-  }, [turn, board, hands, winner, aiDepth, aiTimeMs, finalizeMove]);
+  }, [
+    turn,
+    board,
+    hands,
+    winner,
+    aiDepth,
+    aiTimeMs,
+    finalizeMove,
+    aiOwner,
+    screen,
+  ]);
+
+  const playerLabel = playerOwner === "b" ? "先手（あなた）" : "後手（あなた）";
+
+  const handlePlayerOwnerChange = (owner: Owner) => {
+    setPlayerOwner(owner);
+  };
+
+  const handleStartGame = () => {
+    resetGame();
+    setScreen("game");
+  };
+
+  const handleBackToSettings = () => {
+    resetGame();
+    setScreen("settings");
+  };
+
+  if (screen === "settings") {
+    return (
+      <div className="min-h-screen bg-zinc-950 px-4 py-10 text-zinc-100">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
+          <header className="flex flex-col gap-2">
+            <h1 className="text-3xl font-semibold tracking-tight">
+              将棋AI対戦
+            </h1>
+            <p className="text-sm text-zinc-300">
+              対局設定を行ってから「対局開始」を押してください。
+            </p>
+          </header>
+          <SettingsPanel
+            playerOwner={playerOwner}
+            aiDepth={aiDepth}
+            aiTimeMs={aiTimeMs}
+            onPlayerOwnerChange={handlePlayerOwnerChange}
+            onDepthChange={setAiDepth}
+            onTimeChange={setAiTimeMs}
+            onStart={handleStartGame}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-zinc-950 px-4 py-10 text-zinc-100">
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-6">
-        <header className="flex flex-col gap-2">
-          <h1 className="text-3xl font-semibold tracking-tight">将棋AI対戦</h1>
-          <p className="text-sm text-zinc-300">
-            先手（あなた）対 後手（AI）。駒を選んで移動先をクリック。
-            持ち駒のドロップにも対応しています。
-          </p>
-        </header>
+    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+      <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col items-center justify-center gap-6 px-4 py-6 lg:flex-row">
+        <div className="hidden lg:block lg:w-56" aria-hidden />
 
-        <div className="flex flex-col gap-6 lg:flex-row">
-          <div className="flex flex-1 flex-col gap-4">
-            <div className="flex items-center justify-between rounded-2xl bg-zinc-900 px-5 py-3">
-              <div className="text-sm">
-                <span className="font-medium">後手（AI）</span>
-                <span className="ml-3 text-zinc-400">
-                  {aiThinking ? "AI思考中…" : "待機中"}
-                </span>
-              </div>
-              <div className="text-xs text-zinc-400">
-                {turn === "w" ? "AIの手番" : "あなたの手番"}
-              </div>
+        <div className="flex w-full max-w-[860px] flex-col items-center gap-4">
+          <div className="flex w-full flex-col items-center gap-4">
+            <HandsPanel title="AIの持ち駒" hands={hands} owner={aiOwner} />
+
+            <div className="relative">
+              <ShogiBoard
+                board={board}
+                selected={selected}
+                legalTargets={legalTargets}
+                turn={turn}
+                lastMove={lastMove}
+                playerOwner={playerOwner}
+                onSquareClick={handleSquareClick}
+              />
+              {aiThinking && (
+                <div className="absolute inset-0 z-20 flex items-center justify-center">
+                  <div className="rounded-2xl bg-black/70 px-6 py-4 text-sm text-zinc-100 shadow-xl">
+                    <div className="text-base font-semibold">AI思考中…</div>
+                    <div className="mt-1 text-xs text-zinc-300">
+                      しばらくお待ちください
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-
-            <HandsPanel title="AIの持ち駒" hands={hands} owner="w" />
-
-            <ShogiBoard
-              board={board}
-              selected={selected}
-              legalTargets={legalTargets}
-              turn={turn}
-              onSquareClick={handleSquareClick}
-            />
-
             <HandsPanel
-              title="あなたの持ち駒"
+              title={playerLabel}
               hands={hands}
-              owner="b"
+              owner={playerOwner}
               selectable
               selectedDrop={selectedDrop}
               onSelect={handleDropSelect}
-              disabled={turn !== "b"}
+              disabled={turn !== playerOwner}
             />
           </div>
-
-          <aside className="flex w-full flex-col gap-4 lg:w-72">
-            <StatusPanel turn={turn} winner={winner} checkStatus={checkStatus} />
-            <AiSettingsPanel
-              aiDepth={aiDepth}
-              aiTimeMs={aiTimeMs}
-              aiThinking={aiThinking}
-              onDepthChange={setAiDepth}
-              onTimeChange={setAiTimeMs}
-            />
-            <ControlsPanel onReset={resetGame} />
-          </aside>
         </div>
+
+        <aside className="flex w-full flex-col gap-4 lg:w-72">
+          <StatusPanel turn={turn} winner={winner} checkStatus={checkStatus} />
+          <ControlsPanel
+            onReset={resetGame}
+            onBackToSettings={handleBackToSettings}
+          />
+        </aside>
 
         {pendingPromotion && (
           <PromotionModal

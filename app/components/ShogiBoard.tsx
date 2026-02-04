@@ -9,6 +9,8 @@ type Props = {
   selected: { r: number; c: number } | null;
   legalTargets: Map<string, Move>;
   turn: Owner;
+  lastMove: Move | null;
+  playerOwner: Owner;
   onSquareClick: (r: number, c: number) => void;
 };
 
@@ -17,6 +19,8 @@ export default function ShogiBoard({
   selected,
   legalTargets,
   turn,
+  lastMove,
+  playerOwner,
   onSquareClick,
 }: Props) {
   const getPieceImage = (cell: NonNullable<(typeof board)[number][number]>) => {
@@ -58,6 +62,7 @@ export default function ShogiBoard({
             const isSelected = selected?.r === r && selected?.c === c;
             const isTarget = legalTargets.has(`${r}-${c}`);
             const isCapture = isTarget && !!board[r][c] && board[r][c]?.owner !== turn;
+            const isLastMove = lastMove?.to.r === r && lastMove?.to.c === c;
             return (
               <button
                 key={`${r}-${c}`}
@@ -66,7 +71,7 @@ export default function ShogiBoard({
                   isSelected ? "is-selected" : ""
                 } ${isCapture ? "is-capture" : ""} ${
                   !isCapture && isTarget ? "is-target" : ""
-                }`}
+                } ${isLastMove ? "is-last-move" : ""}`}
               >
                 {cell ? (
                   <Image
@@ -76,7 +81,7 @@ export default function ShogiBoard({
                         ? pieceLabel[cell.type].promoted
                         : pieceLabel[cell.type].base
                     }
-                    className={`shogi-piece ${cell.owner === "w" ? "is-opponent" : ""}`}
+                    className={`shogi-piece ${cell.owner !== playerOwner ? "is-opponent" : ""}`}
                     width={128}
                     height={128}
                     sizes="(max-width: 768px) 12vw, 64px"
