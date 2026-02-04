@@ -1,37 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 将棋AI対戦（Webアプリ）
 
-## Getting Started
+ブラウザで遊べる将棋AI対戦アプリです。先手/後手、AI強さ、思考時間を設定して対局できます。棋譜は日本語表記（「▲」「△」「同」「成」「不成」「打」）で右側に表示されます。
 
-First, run the development server:
+## 主な機能
+
+- 先手/後手選択、AI強さ/思考時間の設定
+- 盤面/持ち駒の駒画像表示（0枚は非表示）
+- 直前の指し手ハイライト
+- AI思考中のモーダル表示
+- 日本語棋譜表示（固定高さ・スクロール）
+- やねうら王（USI）連携。失敗時はローカルAIへフォールバック
+
+## 技術スタック
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+
+## セットアップ
+
+### 1. 依存関係のインストール
+
+```bash
+npm install
+```
+
+### 2. USIエンジン（やねうら王）の用意
+
+- 実行ファイルのパスを環境変数に指定します。
+- macOS / Linux それぞれのバイナリを用意してください。
+
+`.env.local`:
+
+```bash
+YANEURAOU_PATH=/absolute/path/to/engine
+```
+
+### 3. 開発サーバ起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで http://localhost:3000 を開きます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## デプロイについて
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Linux 環境へデプロイする場合は Linux 向けバイナリを用意してください。
+- AI設定（Threads/Hashなど）はサーバー側で調整済みですが、環境に合わせて見直してください。
 
-## Learn More
+## ディレクトリ概要
 
-To learn more about Next.js, take a look at the following resources:
+- app/ : UIと状態管理
+- app/api/ai/route.ts : USIエンジン連携API
+- app/components/ : 盤面/持ち駒/棋譜/設定などのUI部品
+- app/lib/ : 将棋ルール/AI/評価関数
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 注意
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# shogi
+- USIエンジンが利用不可の場合、ローカルAIに自動フォールバックします。
+- エンジンの評価関数（nn.bin）は実行ファイルと対応するものを使用してください。
