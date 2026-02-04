@@ -154,8 +154,16 @@ export async function POST(request: Request) {
   });
   const rl = readline.createInterface({ input: engine.stdout });
   let stderr = "";
+  let spawnError: string | null = null;
+  let exitCode: number | null = null;
   engine.stderr?.on("data", (chunk) => {
     stderr += chunk.toString();
+  });
+  engine.on("error", (error) => {
+    spawnError = error.message;
+  });
+  engine.on("exit", (code) => {
+    exitCode = code;
   });
 
   try {
@@ -177,7 +185,10 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error: "エンジンの応答に失敗しました。",
-        detail: stderr.trim() || "no stderr",
+        detail:
+          stderr.trim() ||
+          spawnError ||
+          (exitCode !== null ? `exit code: ${exitCode}` : "no stderr"),
       },
       { status: 500 }
     );
