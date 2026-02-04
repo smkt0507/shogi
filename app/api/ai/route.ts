@@ -179,16 +179,18 @@ export async function POST(request: Request) {
     sendLine(engine, "quit");
     engine.kill();
     return NextResponse.json({ move });
-  } catch {
+  } catch (error) {
     sendLine(engine, "quit");
     engine.kill();
+    const errorMessage =
+      error instanceof Error ? error.message : "unknown error";
     return NextResponse.json(
       {
         error: "エンジンの応答に失敗しました。",
         detail:
           stderr.trim() ||
           spawnError ||
-          (exitCode !== null ? `exit code: ${exitCode}` : "no stderr"),
+          (exitCode !== null ? `exit code: ${exitCode}` : errorMessage),
       },
       { status: 500 }
     );
