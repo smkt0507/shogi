@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.shogi-board {
+  --cell-size: clamp(36px, 7.5vw, 64px);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.08)),
+    url("/wood-texture.svg");
+  background-size: cover;
+  border: 10px solid #8a5e2f;
+  border-radius: 0;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.25);
+  width: calc(var(--cell-size) * 9 + 51px);
+  max-width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.shogi-grid {
+  display: grid;
+  grid-template-columns: repeat(9, var(--cell-size));
+  grid-auto-rows: var(--cell-size);
+  gap: 2px;
+}
+
+.shogi-cell {
+  position: relative;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background: rgba(255, 244, 214, 0.7);
+  border: 1px solid rgba(110, 76, 42, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  border-radius: 0;
+}
+
+.shogi-cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+  pointer-events: none;
+}
+
+.shogi-cell.is-selected {
+  box-shadow: 0 0 0 3px rgba(255, 170, 64, 0.75);
+  transform: translateY(-1px);
+}
+
+.shogi-cell.is-target {
+  box-shadow: 0 0 0 3px rgba(61, 201, 141, 0.65);
+}
+
+.shogi-cell.is-capture {
+  box-shadow: 0 0 0 3px rgba(234, 84, 84, 0.65);
+}
+
+.shogi-piece {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+.shogi-piece.is-opponent {
+  transform: rotate(180deg);
+}
