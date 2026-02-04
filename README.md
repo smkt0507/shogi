@@ -9,6 +9,8 @@
 - 直前の指し手ハイライト
 - AI思考中のモーダル表示
 - 日本語棋譜表示（固定高さ・スクロール）
+- 好手/悪手の自動判定（青/赤で色分け）
+- 画面ごとのルーティング（/settings, /game, /result）
 - やねうら王（USI）連携。失敗時はローカルAIへフォールバック
 
 ## 技術スタック
@@ -56,6 +58,12 @@ npm run dev
 - app/components/ : 盤面/持ち駒/棋譜/設定などのUI部品
 - app/lib/ : 将棋ルール/AI/評価関数
 
+## 画面ルーティング
+
+- /settings : 対局設定
+- /game : 対局画面
+- /result : 勝敗表示
+
 ## 主要な型（TypeScript）
 
 定義は [app/lib/types.ts](app/lib/types.ts) を参照してください。
@@ -79,6 +87,7 @@ npm run dev
 - `isInCheck()`: 王手判定。
 - `findKing()`: 王の位置を探索。
 - `chooseAiMove()`: AIの指し手を選択（USI優先、失敗時ローカルAI）。
+- `evaluatePosition()`: 盤面評価を取得（USI優先、失敗時ローカル評価）。
 
 ## 主要なコンポーネント
 

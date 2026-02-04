@@ -8,7 +8,7 @@ export const isMoveGivingCheck = (
   board: Board,
   hands: Hands,
   owner: Owner,
-  move: Move
+  move: Move,
 ) => {
   const next = applyMove(board, hands, move, owner);
   const opponent: Owner = owner === "w" ? "b" : "w";
@@ -19,7 +19,7 @@ export const orderMoves = (
   board: Board,
   hands: Hands,
   owner: Owner,
-  moves: Move[]
+  moves: Move[],
 ) =>
   [...moves].sort((a, b) => {
     const aCapture = a.from ? board[a.to.r][a.to.c] : null;
@@ -36,7 +36,7 @@ export const expandMovesForSearch = (
   board: Board,
   hands: Hands,
   owner: Owner,
-  moves: Move[]
+  moves: Move[],
 ) => {
   const expanded: Move[] = [];
   for (const move of moves) {
@@ -60,7 +60,7 @@ export const minimax = (
   depth: number,
   alpha: number,
   beta: number,
-  maximizing: boolean
+  maximizing: boolean,
 ): number => {
   if (depth === 0) return evaluate(board, hands);
   const owner: Owner = maximizing ? "w" : "b";
@@ -77,7 +77,14 @@ export const minimax = (
     let value = -Infinity;
     for (const move of orderMoves(board, hands, owner, moves)) {
       const next = applyMove(board, hands, move, owner);
-      const score = minimax(next.board, next.hands, depth - 1, alpha, beta, false);
+      const score = minimax(
+        next.board,
+        next.hands,
+        depth - 1,
+        alpha,
+        beta,
+        false,
+      );
       value = Math.max(value, score);
       alpha = Math.max(alpha, value);
       if (beta <= alpha) break;
@@ -117,7 +124,7 @@ export const chooseLocalAiMove = (
   board: Board,
   hands: Hands,
   maxDepth: number,
-  timeMs: number
+  timeMs: number,
 ) => {
   const legalMoves = buildLegalMoves(board, hands, "w");
   const baseMoves = expandMovesForSearch(board, hands, "w", legalMoves);
@@ -143,9 +150,10 @@ export const chooseLocalAiMove = (
         depth - 1,
         -Infinity,
         Infinity,
-        false
+        false,
       );
-      const bonus = endgame && isMoveGivingCheck(board, hands, "w", move) ? 0.5 : 0;
+      const bonus =
+        endgame && isMoveGivingCheck(board, hands, "w", move) ? 0.5 : 0;
       const scored = score + bonus;
       if (scored > localBestScore) {
         localBestScore = scored;
@@ -156,7 +164,8 @@ export const chooseLocalAiMove = (
     }
 
     if (localBestMoves.length > 0) {
-      bestMove = localBestMoves[Math.floor(Math.random() * localBestMoves.length)];
+      bestMove =
+        localBestMoves[Math.floor(Math.random() * localBestMoves.length)];
     }
   }
 
@@ -171,7 +180,7 @@ export const chooseAiMove = async (
   board: Board,
   hands: Hands,
   maxDepth: number,
-  timeMs: number
+  timeMs: number,
 ) => {
   if (typeof window !== "undefined") {
     try {
@@ -195,4 +204,40 @@ export const chooseAiMove = async (
     }
   }
   return chooseLocalAiMove(board, hands, maxDepth, timeMs);
+};
+
+export const evaluatePosition = async (
+  board: Board,
+  hands: Hands,
+  turn: Owner,
+  depth: number,
+  timeMs: number,
+) => {
+  const localScore = evaluate(board, hands);
+  const localCp = Math.round((turn === "w" ? localScore : -localScore) * 100);
+
+  if (typeof window !== "undefined") {
+    try {
+      const response = await fetch("/api/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          board,
+          hands,
+          turn,
+          depth,
+          timeMs,
+          mode: "evaluate",
+        }),
+      });
+      if (response.ok) {
+        const data = (await response.json()) as { score?: number };
+        if (typeof data.score === "number") return data.score;
+      }
+    } catch {
+      // ignore and fallback
+    }
+  }
+
+  return localCp;
 };

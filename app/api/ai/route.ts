@@ -61,7 +61,8 @@ const parseSquare = (fileChar: string, rankChar: string) => {
 };
 
 const parseUsiMove = (move: string): Move | null => {
-  if (!move || move === "resign" || move === "win" || move === "none") return null;
+  if (!move || move === "resign" || move === "win" || move === "none")
+    return null;
   if (move.includes("*")) {
     const [pieceChar, square] = move.split("*");
     if (!square || square.length < 2) return null;
@@ -82,10 +83,22 @@ const parseUsiMove = (move: string): Move | null => {
   };
 };
 
+const parseScore = (line: string) => {
+  const match = line.match(/\bscore\s+(cp|mate)\s+(-?\d+)/);
+  if (!match) return null;
+  const type = match[1];
+  const value = Number(match[2]);
+  if (Number.isNaN(value)) return null;
+  if (type === "cp") return value;
+  const sign = value >= 0 ? 1 : -1;
+  const abs = Math.abs(value);
+  return sign * (100000 - abs);
+};
+
 const waitForMatch = (
   rl: readline.Interface,
   pattern: RegExp,
-  timeoutMs: number
+  timeoutMs: number,
 ) =>
   new Promise<string>((resolve, reject) => {
     const onLine = (line: string) => {
@@ -115,13 +128,13 @@ export async function POST(request: Request) {
   if (!enginePath) {
     return NextResponse.json(
       { error: "YANEURAOU_PATHが未設定です。" },
-      { status: 400 }
+      { status: 400 },
     );
   }
   if (!fs.existsSync(enginePath)) {
     return NextResponse.json(
       { error: "エンジンの実行ファイルが見つかりません。" },
-      { status: 400 }
+      { status: 400 },
     );
   }
   try {
@@ -129,7 +142,7 @@ export async function POST(request: Request) {
   } catch {
     return NextResponse.json(
       { error: "エンジンの実行権限がありません。" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -139,13 +152,18 @@ export async function POST(request: Request) {
     turn: Owner;
     depth?: number;
     timeMs?: number;
+    mode?: "bestmove" | "evaluate";
   };
 
   const sfen = toSfen(body.board, body.hands, body.turn);
   const depth = Math.max(1, body.depth ?? 5);
   const timeMs = Math.max(200, body.timeMs ?? 1000);
   const depthScale = Math.max(1, depth - 4);
-  const moveTime = Math.min(timeMs * depthScale, 2000);
+  const mode = body.mode ?? "bestmove";
+  const moveTime =
+    mode === "evaluate"
+      ? Math.min(Math.max(timeMs * Math.max(2, depthScale), 2000), 5000)
+      : Math.min(timeMs * depthScale, 2000);
 
   const engineDir = path.dirname(enginePath);
   const engine = spawn(enginePath, [], {
@@ -153,9 +171,15 @@ export async function POST(request: Request) {
     cwd: engineDir,
   });
   const rl = readline.createInterface({ input: engine.stdout });
+  let lastScore: number | null = null;
   let stderr = "";
   let spawnError: string | null = null;
   let exitCode: number | null = null;
+  rl.on("line", (line) => {
+    if (!line.startsWith("info")) return;
+    const score = parseScore(line);
+    if (score !== null) lastScore = score;
+  });
   engine.stderr?.on("data", (chunk) => {
     stderr += chunk.toString();
   });
@@ -180,6 +204,15 @@ export async function POST(request: Request) {
     const move = parseUsiMove(best);
     sendLine(engine, "quit");
     engine.kill();
+    if (mode === "evaluate") {
+      if (lastScore === null) {
+        return NextResponse.json(
+          { error: "評価値を取得できませんでした。" },
+          { status: 500 },
+        );
+      }
+      return NextResponse.json({ score: lastScore });
+    }
     return NextResponse.json({ move });
   } catch (error) {
     sendLine(engine, "quit");
@@ -194,7 +227,7 @@ export async function POST(request: Request) {
           spawnError ||
           (exitCode !== null ? `exit code: ${exitCode}` : errorMessage),
       },
-      { status: 500 }
+      { status: 500 },
     );
   } finally {
     rl.close();

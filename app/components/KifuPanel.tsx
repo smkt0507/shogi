@@ -11,6 +11,7 @@ type KifuEntry = {
   to: { r: number; c: number };
   promotion: "none" | "optional" | "must";
   optionalPromotion: boolean;
+  quality?: "good" | "bad" | "neutral";
 };
 
 type Props = {
@@ -62,7 +63,16 @@ export default function KifuPanel({ moves, heightClassName = "h-64" }: Props) {
           <div className="text-zinc-500">まだ指し手がありません。</div>
         ) : (
           moves.map((entry, index) => (
-            <div key={`${index}-${entry.owner}`}>
+            <div
+              key={`${index}-${entry.owner}`}
+              className={
+                entry.quality === "good"
+                  ? "text-sky-400"
+                  : entry.quality === "bad"
+                    ? "text-rose-400"
+                    : ""
+              }
+            >
               {formatMove(entry, index, moves[index - 1])}
             </div>
           ))

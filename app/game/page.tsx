@@ -18,6 +18,7 @@ import {
   buildLegalMoves,
   canApplyPromotionOption,
   chooseAiMove,
+  evaluatePosition,
   emptyHands,
   findKing,
   getLegalDropMoves,
@@ -50,6 +51,7 @@ const createInitialState = () => ({
     to: { r: number; c: number };
     promotion: Move["promotion"];
     optionalPromotion: boolean;
+    quality?: "good" | "bad" | "neutral";
   }[],
 });
 
@@ -78,10 +80,12 @@ export default function GamePage() {
       to: { r: number; c: number };
       promotion: Move["promotion"];
       optionalPromotion: boolean;
+      quality?: "good" | "bad" | "neutral";
     }[]
   >([]);
   const [aiThinking, setAiThinking] = useState(false);
   const aiThinkingRef = useRef(false);
+  const evalRef = useRef<number | null>(null);
   const initialSettings = (() => {
     if (typeof window === "undefined") return null;
     const saved = localStorage.getItem(SETTINGS_KEY);
@@ -120,6 +124,23 @@ export default function GamePage() {
     localStorage.removeItem(RESULT_KEY);
   }, [router, settingsLoaded]);
 
+  useEffect(() => {
+    if (!settingsLoaded) return;
+    if (evalRef.current !== null) return;
+    const evalDepth = Math.max(aiDepth + 2, 8);
+    const evalTimeMs = Math.max(aiTimeMs * 2, 2000);
+    void (async () => {
+      const score = await evaluatePosition(
+        board,
+        hands,
+        turn,
+        evalDepth,
+        evalTimeMs,
+      );
+      evalRef.current = score;
+    })();
+  }, [settingsLoaded, aiDepth, aiTimeMs, board, hands, turn]);
+
   const checkStatus = useMemo(
     () => ({
       b: isInCheck(board, "b"),
@@ -142,6 +163,7 @@ export default function GamePage() {
     setMoveHistory(next.moveHistory);
     setAiThinking(false);
     aiThinkingRef.current = false;
+    evalRef.current = null;
   };
 
   const legalTargets = useMemo(() => {
@@ -179,6 +201,7 @@ export default function GamePage() {
         ? null
         : board[move.from?.r ?? -1]?.[move.from?.c ?? -1];
       const pieceType = move.drop ?? movedPiece?.type;
+      const moveIndex = pieceType ? moveHistory.length : -1;
       if (pieceType) {
         const promoted =
           move.promotion === "must" ? true : !!movedPiece?.promoted;
@@ -193,12 +216,39 @@ export default function GamePage() {
             to: move.to,
             promotion: move.promotion,
             optionalPromotion,
+            quality: "neutral" as const,
           },
         ]);
       }
       const opponent: Owner = owner === "b" ? "w" : "b";
       const opponentKing = findKing(nextBoard, opponent);
       const opponentMoves = buildLegalMoves(nextBoard, nextHands, opponent);
+      const scoreBefore = evalRef.current;
+      if (moveIndex >= 0) {
+        const evalDepth = Math.max(aiDepth + 2, 8);
+        const evalTimeMs = Math.max(aiTimeMs * 2, 2000);
+        void (async () => {
+          const scoreAfter = await evaluatePosition(
+            nextBoard,
+            nextHands,
+            opponent,
+            evalDepth,
+            evalTimeMs,
+          );
+          evalRef.current = scoreAfter;
+          if (scoreBefore === null) return;
+          const scoreAfterForMover = -scoreAfter;
+          const delta = scoreAfterForMover - scoreBefore;
+          const quality =
+            delta >= 80 ? "good" : delta <= -80 ? "bad" : "neutral";
+          setMoveHistory((prev) => {
+            if (!prev[moveIndex]) return prev;
+            const next = [...prev];
+            next[moveIndex] = { ...next[moveIndex], quality };
+            return next;
+          });
+        })();
+      }
       if (
         !opponentKing ||
         (opponentMoves.length === 0 && isInCheck(nextBoard, opponent))
@@ -213,7 +263,7 @@ export default function GamePage() {
         setTurn(opponent);
       }
     },
-    [board, hands, turn, playerOwner, router],
+    [board, hands, turn, playerOwner, router, aiDepth, aiTimeMs],
   );
 
   const handleSquareClick = (r: number, c: number) => {
