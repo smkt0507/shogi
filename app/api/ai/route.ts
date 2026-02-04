@@ -169,6 +169,8 @@ export async function POST(request: Request) {
   try {
     sendLine(engine, "usi");
     await waitForMatch(rl, /^usiok/, 8000);
+    sendLine(engine, "setoption name USI_Hash value 64");
+    sendLine(engine, "setoption name Threads value 1");
     sendLine(engine, "isready");
     await waitForMatch(rl, /^readyok/, 8000);
     sendLine(engine, `position sfen ${sfen}`);
