@@ -145,7 +145,7 @@ export async function POST(request: Request) {
   const depth = Math.max(1, body.depth ?? 5);
   const timeMs = Math.max(200, body.timeMs ?? 1000);
   const depthScale = Math.max(1, depth - 4);
-  const moveTime = Math.min(timeMs * depthScale, 20000);
+  const moveTime = Math.min(timeMs * depthScale, 2000);
 
   const engineDir = path.dirname(enginePath);
   const engine = spawn(enginePath, [], {
@@ -168,12 +168,12 @@ export async function POST(request: Request) {
 
   try {
     sendLine(engine, "usi");
-    await waitForMatch(rl, /^usiok/, 15000);
+    await waitForMatch(rl, /^usiok/, 8000);
     sendLine(engine, "isready");
-    await waitForMatch(rl, /^readyok/, 15000);
+    await waitForMatch(rl, /^readyok/, 8000);
     sendLine(engine, `position sfen ${sfen}`);
     sendLine(engine, `go movetime ${moveTime}`);
-    const bestLine = await waitForMatch(rl, /^bestmove\s+/, moveTime + 30000);
+    const bestLine = await waitForMatch(rl, /^bestmove\s+/, moveTime + 8000);
     const best = bestLine.split(/\s+/)[1] ?? "";
     const move = parseUsiMove(best);
     sendLine(engine, "quit");
