@@ -56,6 +56,42 @@ npm run dev
 - app/components/ : 盤面/持ち駒/棋譜/設定などのUI部品
 - app/lib/ : 将棋ルール/AI/評価関数
 
+## 主要な型（TypeScript）
+
+定義は [app/lib/types.ts](app/lib/types.ts) を参照してください。
+
+- `Owner`: 先手/後手を表す識別子（"b" / "w"）。
+- `PieceType`: 駒種（"P" "L" "N" "S" "G" "B" "R" "K"）。
+- `Piece`: 盤上の駒（駒種・所有者・成り状態）。
+- `Board`: 9x9 の盤面配列。
+- `Hands`: 持ち駒の数を保持する連想配列。
+- `Move`: 指し手（移動/打ち、成り情報を含む）。
+
+## 主要な関数
+
+定義は [app/lib/shogi.ts](app/lib/shogi.ts) 経由で再エクスポートされています。
+
+- `applyMove()`: 指し手を盤面/持ち駒に適用して新状態を返す。
+- `buildLegalMoves()`: 盤面全体の合法手を生成。
+- `getLegalMovesForPiece()`: 指定した駒の合法手を生成。
+- `getLegalDropMoves()`: 打ち手の合法手を生成。
+- `canApplyPromotionOption()`: 成り/不成の可否を判定。
+- `isInCheck()`: 王手判定。
+- `findKing()`: 王の位置を探索。
+- `chooseAiMove()`: AIの指し手を選択（USI優先、失敗時ローカルAI）。
+
+## 主要なコンポーネント
+
+コンポーネントは [app/components](app/components) にあります。
+
+- `ShogiBoard`: 盤面描画とクリック処理。
+- `HandsPanel`: 持ち駒表示・選択。
+- `KifuPanel`: 日本語棋譜表示（同/成/不成/打）。
+- `SettingsPanel`: 先手/後手・AI設定の入力。
+- `StatusPanel`: 手番/勝敗/王手表示。
+- `ControlsPanel`: リセット・設定戻り。
+- `PromotionModal`: 成/不成の選択モーダル。
+
 ## 注意
 
 - USIエンジンが利用不可の場合、ローカルAIに自動フォールバックします。
