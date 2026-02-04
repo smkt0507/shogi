@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { spawn } from "node:child_process";
 import readline from "node:readline";
 import path from "node:path";
+import fs from "node:fs";
 import type { Board, Hands, Move, Owner, PieceType } from "@/app/lib/types";
 
 export const runtime = "nodejs";
@@ -117,6 +118,20 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
+  if (!fs.existsSync(enginePath)) {
+    return NextResponse.json(
+      { error: "エンジンの実行ファイルが見つかりません。" },
+      { status: 400 }
+    );
+  }
+  try {
+    fs.accessSync(enginePath, fs.constants.X_OK);
+  } catch {
+    return NextResponse.json(
+      { error: "エンジンの実行権限がありません。" },
+      { status: 400 }
+    );
+  }
 
   const body = (await request.json()) as {
     board: Board;
@@ -138,6 +153,10 @@ export async function POST(request: Request) {
     cwd: engineDir,
   });
   const rl = readline.createInterface({ input: engine.stdout });
+  let stderr = "";
+  engine.stderr?.on("data", (chunk) => {
+    stderr += chunk.toString();
+  });
 
   try {
     sendLine(engine, "usi");
@@ -156,7 +175,10 @@ export async function POST(request: Request) {
     sendLine(engine, "quit");
     engine.kill();
     return NextResponse.json(
-      { error: "エンジンの応答に失敗しました。" },
+      {
+        error: "エンジンの応答に失敗しました。",
+        detail: stderr.trim() || "no stderr",
+      },
       { status: 500 }
     );
   } finally {
