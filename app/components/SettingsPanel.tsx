@@ -1,12 +1,18 @@
 "use client";
 
+import { depthOptions, timeOptions } from "../lib/settings";
+
 type Props = {
   playerOwner: "b" | "w";
   aiDepth: number;
   aiTimeMs: number;
+  showHints: boolean;
+  showEvaluationGraph: boolean;
   onPlayerOwnerChange: (owner: "b" | "w") => void;
   onDepthChange: (value: number) => void;
   onTimeChange: (value: number) => void;
+  onHintsChange: (enabled: boolean) => void;
+  onEvaluationGraphChange: (enabled: boolean) => void;
   onStart: () => void;
 };
 
@@ -14,9 +20,13 @@ export default function SettingsPanel({
   playerOwner,
   aiDepth,
   aiTimeMs,
+  showHints,
+  showEvaluationGraph,
   onPlayerOwnerChange,
   onDepthChange,
   onTimeChange,
+  onHintsChange,
+  onEvaluationGraphChange,
   onStart,
 }: Props) {
   return (
@@ -43,10 +53,11 @@ export default function SettingsPanel({
             onChange={(event) => onDepthChange(Number(event.target.value))}
             className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100"
           >
-            <option value={2}>Lv.1（深さ2）</option>
-            <option value={3}>Lv.2（深さ3）</option>
-            <option value={4}>Lv.3（深さ4）</option>
-            <option value={5}>Lv.4（深さ5）</option>
+            {depthOptions.map((depth, index) => (
+              <option key={depth} value={depth}>
+                Lv.{index + 1}（深さ{depth}）
+              </option>
+            ))}
           </select>
         </div>
         <div>
@@ -56,12 +67,47 @@ export default function SettingsPanel({
             onChange={(event) => onTimeChange(Number(event.target.value))}
             className="w-full rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100"
           >
-            <option value={400}>0.4秒</option>
-            <option value={800}>0.8秒</option>
-            <option value={1200}>1.2秒</option>
-            <option value={2000}>2.0秒</option>
+            {timeOptions.map((time) => (
+              <option key={time} value={time}>
+                {(time / 1000).toFixed(1)}秒
+              </option>
+            ))}
           </select>
         </div>
+        <fieldset className="space-y-3 border-t border-zinc-800 pt-4">
+          <legend className="px-1 text-sm font-semibold">学習モード</legend>
+          <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-zinc-700 p-3 hover:bg-zinc-800/60">
+            <input
+              type="checkbox"
+              checked={showHints}
+              onChange={(event) => onHintsChange(event.target.checked)}
+              className="mt-1 h-4 w-4 accent-sky-400"
+            />
+            <span>
+              <span className="block font-semibold">次の一手ヒント</span>
+              <span className="mt-1 block text-xs leading-relaxed text-zinc-400">
+                自分の手番にAIのおすすめを表示。動かす駒と移動先を盤上で確認できます。
+              </span>
+            </span>
+          </label>
+          <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-zinc-700 p-3 hover:bg-zinc-800/60">
+            <input
+              type="checkbox"
+              checked={showEvaluationGraph}
+              onChange={(event) =>
+                onEvaluationGraphChange(event.target.checked)
+              }
+              className="mt-1 h-4 w-4 accent-emerald-400"
+            />
+            <span>
+              <span className="block font-semibold">評価値グラフ</span>
+              <span className="mt-1 block text-xs leading-relaxed text-zinc-400">
+                1手ごとの形勢を折れ線で表示。対局後も振り返れます。
+              </span>
+            </span>
+          </label>
+          <p className="text-xs text-zinc-500">両方同時に使えます。</p>
+        </fieldset>
       </div>
       <button
         onClick={onStart}

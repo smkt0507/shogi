@@ -1,98 +1,116 @@
 "use client";
 
+import { memo } from "react";
 import Image from "next/image";
-import type { Board, Move, Owner } from "../lib/types";
+import type { Board, Move, Owner, Piece } from "../lib/types";
 import { pieceLabel } from "../lib/constants";
+import { squareText } from "../lib/notation";
+import { boardPieceImage } from "../lib/pieceAssets";
 
 type Props = {
   board: Board;
-  selected: { r: number; c: number } | null;
+  selected: Move["to"] | null;
   legalTargets: Map<string, Move>;
   turn: Owner;
   lastMove: Move | null;
   playerOwner: Owner;
+  hintMove?: Move | null;
   onSquareClick: (r: number, c: number) => void;
 };
 
-export default function ShogiBoard({
+type SquareProps = {
+  r: number;
+  c: number;
+  piece: Piece | null;
+  selected: boolean;
+  target: boolean;
+  capture: boolean;
+  lastMove: boolean;
+  hintFrom: boolean;
+  hintTo: boolean;
+  playerOwner: Owner;
+  onClick: Props["onSquareClick"];
+};
+
+// Piece identities survive immutable moves, so unaffected squares can skip rendering.
+const BoardSquare = memo(function BoardSquare(props: SquareProps) {
+  const {
+    r,
+    c,
+    piece,
+    selected,
+    target,
+    capture,
+    lastMove,
+    hintFrom,
+    hintTo,
+    playerOwner,
+    onClick,
+  } = props;
+  const label = piece
+    ? piece.promoted
+      ? pieceLabel[piece.type].promoted
+      : pieceLabel[piece.type].base
+    : "";
+  return (
+    <button
+      type="button"
+      aria-label={`${squareText({ r, c })}${piece ? ` ${piece.owner === "b" ? "先手" : "後手"}の${label}` : " 空きマス"}${hintFrom ? " ヒントの移動元" : ""}${hintTo ? " ヒントの移動先" : ""}`}
+      aria-pressed={selected}
+      onClick={() => onClick(r, c)}
+      className={`shogi-cell flex items-center justify-center text-lg font-semibold ${selected ? "is-selected" : ""} ${capture ? "is-capture" : target ? "is-target" : ""} ${lastMove ? "is-last-move" : ""} ${hintFrom ? "is-hint-from" : ""}`}
+    >
+      {piece && (
+        <Image
+          src={boardPieceImage(piece)}
+          alt={label}
+          className={`shogi-piece ${piece.owner !== playerOwner ? "is-opponent" : ""}`}
+          width={128}
+          height={128}
+          sizes="64px"
+          draggable={false}
+        />
+      )}
+      {hintTo && <span className="shogi-hint-target" aria-hidden="true" />}
+    </button>
+  );
+});
+
+export default memo(function ShogiBoard({
   board,
   selected,
   legalTargets,
   turn,
   lastMove,
   playerOwner,
+  hintMove,
   onSquareClick,
 }: Props) {
-  const getPieceImage = (cell: NonNullable<(typeof board)[number][number]>) => {
-    if (cell.type === "K") {
-      return cell.owner === "w" ? "/koma/gyoku.png" : "/koma/ou.png";
-    }
-
-    const baseMap: Record<Exclude<typeof cell.type, "K">, string> = {
-      P: "/koma/fu.png",
-      L: "/koma/kyou.png",
-      N: "/koma/kei.png",
-      S: "/koma/gin.png",
-      G: "/koma/kin.png",
-      B: "/koma/kaku.png",
-      R: "/koma/hisha.png",
-    };
-
-    const promotedMap: Partial<Record<typeof cell.type, string>> = {
-      P: "/koma/fu-nari.png",
-      L: "/koma/kyou-nari.png",
-      N: "/koma/kei-nari.png",
-      S: "/koma/gin-nari.png",
-      B: "/koma/kaku-nari.png",
-      R: "/koma/hisha-nari.png",
-    };
-
-    if (cell.promoted && promotedMap[cell.type]) {
-      return promotedMap[cell.type]!;
-    }
-
-    return baseMap[cell.type];
-  };
-
   return (
-    <div className="shogi-board rounded-2xl p-4 text-zinc-900">
+    <div className="shogi-board text-zinc-900">
       <div className="shogi-grid">
         {board.map((row, r) =>
-          row.map((cell, c) => {
-            const isSelected = selected?.r === r && selected?.c === c;
-            const isTarget = legalTargets.has(`${r}-${c}`);
-            const isCapture = isTarget && !!board[r][c] && board[r][c]?.owner !== turn;
-            const isLastMove = lastMove?.to.r === r && lastMove?.to.c === c;
+          row.map((piece, c) => {
+            const target = legalTargets.has(`${r}-${c}`);
             return (
-              <button
+              <BoardSquare
                 key={`${r}-${c}`}
-                onClick={() => onSquareClick(r, c)}
-                className={`shogi-cell flex items-center justify-center rounded-md text-lg font-semibold ${
-                  isSelected ? "is-selected" : ""
-                } ${isCapture ? "is-capture" : ""} ${
-                  !isCapture && isTarget ? "is-target" : ""
-                } ${isLastMove ? "is-last-move" : ""}`}
-              >
-                {cell ? (
-                  <Image
-                    src={getPieceImage(cell)}
-                    alt={
-                      cell.promoted
-                        ? pieceLabel[cell.type].promoted
-                        : pieceLabel[cell.type].base
-                    }
-                    className={`shogi-piece ${cell.owner !== playerOwner ? "is-opponent" : ""}`}
-                    width={128}
-                    height={128}
-                    sizes="(max-width: 768px) 12vw, 64px"
-                    draggable={false}
-                  />
-                ) : null}
-              </button>
+                r={r}
+                c={c}
+                piece={piece}
+                playerOwner={playerOwner}
+                onClick={onSquareClick}
+                selected={selected?.r === r && selected.c === c}
+                target={target}
+                capture={target && !!piece && piece.owner !== turn}
+                lastMove={lastMove?.to.r === r && lastMove.to.c === c}
+                hintFrom={hintMove?.from?.r === r && hintMove.from.c === c}
+                hintTo={hintMove?.to.r === r && hintMove.to.c === c}
+              />
             );
-          })
+          }),
         )}
       </div>
     </div>
   );
-}
+});

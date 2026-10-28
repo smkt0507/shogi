@@ -1,5 +1,10 @@
 import type { Board, Hands } from "./types";
-import { pieceSquare, pieceValues, promotedBonus, handOrder } from "./constants";
+import {
+  pieceSquare,
+  pieceValues,
+  promotedBonus,
+  handOrder,
+} from "./constants";
 import { getMovesForPiece } from "./moves";
 import { isInCheck } from "./rules";
 

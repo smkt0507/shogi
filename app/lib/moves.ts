@@ -1,6 +1,5 @@
 import type { Board, Hands, Move, Owner, Piece, PieceType } from "./types";
 import { handOrder } from "./constants";
-import { cloneBoard, cloneHands } from "./board";
 
 export const inPromotionZone = (owner: Owner, row: number) =>
   owner === "b" ? row <= 2 : row >= 6;
@@ -23,10 +22,15 @@ export const mustPromote = (piece: Piece, toRow: number) => {
 export const isInside = (r: number, c: number) =>
   r >= 0 && r < 9 && c >= 0 && c < 9;
 
-export const getMovePromotion = (piece: Piece, fromRow: number, toRow: number) => {
+export const getMovePromotion = (
+  piece: Piece,
+  fromRow: number,
+  toRow: number,
+) => {
   if (!canPromote(piece)) return "none" as const;
   const eligible =
-    inPromotionZone(piece.owner, fromRow) || inPromotionZone(piece.owner, toRow);
+    inPromotionZone(piece.owner, fromRow) ||
+    inPromotionZone(piece.owner, toRow);
   if (!eligible) return "none" as const;
   return mustPromote(piece, toRow) ? "must" : "optional";
 };
@@ -35,13 +39,17 @@ export const pushMove = (
   moves: Move[],
   piece: Piece,
   from: { r: number; c: number },
-  to: { r: number; c: number }
+  to: { r: number; c: number },
 ) => {
   const promotion = getMovePromotion(piece, from.r, to.r);
   moves.push({ from, to, promotion });
 };
 
-export const getMovesForPiece = (board: Board, r: number, c: number): Move[] => {
+export const getMovesForPiece = (
+  board: Board,
+  r: number,
+  c: number,
+): Move[] => {
   const piece = board[r][c];
   if (!piece) return [];
   const dir = piece.owner === "b" ? -1 : 1;
@@ -181,18 +189,23 @@ export const demote = (piece: Piece): PieceType => {
   return piece.type;
 };
 
-export const getLegalDrops = (board: Board, hands: Hands, owner: Owner): Move[] => {
+export const getLegalDrops = (
+  board: Board,
+  hands: Hands,
+  owner: Owner,
+): Move[] => {
   const moves: Move[] = [];
   const hand = hands[owner];
-  const hasUnpromotedPawnInFile = (file: number) => {
+  const pawnFiles = new Set<number>();
+  if (hand.P > 0) {
     for (let r = 0; r < 9; r += 1) {
-      const cell = board[r][file];
-      if (cell && cell.owner === owner && cell.type === "P" && !cell.promoted) {
-        return true;
+      for (let c = 0; c < 9; c += 1) {
+        const cell = board[r][c];
+        if (cell?.owner === owner && cell.type === "P" && !cell.promoted)
+          pawnFiles.add(c);
       }
     }
-    return false;
-  };
+  }
 
   for (const type of handOrder) {
     if (hand[type] <= 0) continue;
@@ -200,11 +213,13 @@ export const getLegalDrops = (board: Board, hands: Hands, owner: Owner): Move[] 
       for (let c = 0; c < 9; c += 1) {
         if (board[r][c]) continue;
         if (type === "P") {
-          if (hasUnpromotedPawnInFile(c)) continue;
-          if ((owner === "b" && r === 0) || (owner === "w" && r === 8)) continue;
+          if (pawnFiles.has(c)) continue;
+          if ((owner === "b" && r === 0) || (owner === "w" && r === 8))
+            continue;
         }
         if (type === "L") {
-          if ((owner === "b" && r === 0) || (owner === "w" && r === 8)) continue;
+          if ((owner === "b" && r === 0) || (owner === "w" && r === 8))
+            continue;
         }
         if (type === "N") {
           if ((owner === "b" && r <= 1) || (owner === "w" && r >= 7)) continue;
@@ -216,9 +231,18 @@ export const getLegalDrops = (board: Board, hands: Hands, owner: Owner): Move[] 
   return moves;
 };
 
-export const applyMove = (board: Board, hands: Hands, move: Move, owner: Owner) => {
-  const nextBoard = cloneBoard(board);
-  const nextHands = cloneHands(hands);
+export const applyMove = (
+  board: Board,
+  hands: Hands,
+  move: Move,
+  owner: Owner,
+) => {
+  // Copy only modified rows and the mover's hand. Unchanged pieces stay shared.
+  const nextBoard = [...board];
+  nextBoard[move.to.r] = [...board[move.to.r]];
+  if (move.from && move.from.r !== move.to.r)
+    nextBoard[move.from.r] = [...board[move.from.r]];
+  const nextHands = { ...hands, [owner]: { ...hands[owner] } };
   if (move.drop) {
     nextHands[owner][move.drop] -= 1;
     nextBoard[move.to.r][move.to.c] = {

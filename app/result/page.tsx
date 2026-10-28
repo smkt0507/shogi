@@ -1,40 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Owner } from "../lib/types";
-
-const SETTINGS_KEY = "shogi-settings";
-const RESULT_KEY = "shogi-result";
-
-type ResultState = {
-  winner: Owner;
-  playerOwner: Owner;
-};
+import { useMemo } from "react";
+import EvaluationGraph from "../components/EvaluationGraph";
+import {
+  parseResult,
+  parseSettings,
+  SETTINGS_KEY,
+  RESULT_KEY,
+} from "../lib/settings";
+import { useLocalStorageValue } from "../lib/useLocalStorageValue";
+import { readStoredValue } from "../lib/storage";
 
 export default function ResultPage() {
   const router = useRouter();
-  const [result] = useState<ResultState | null>(() => {
-    if (typeof window === "undefined") return null;
-    const saved = localStorage.getItem(RESULT_KEY);
-    if (!saved) return null;
-    try {
-      const parsed = JSON.parse(saved) as ResultState;
-      if (
-        (parsed.winner === "b" || parsed.winner === "w") &&
-        (parsed.playerOwner === "b" || parsed.playerOwner === "w")
-      ) {
-        return parsed;
-      }
-    } catch {
-      return null;
-    }
-    return null;
-  });
+  const saved = useLocalStorageValue(RESULT_KEY);
+  const result = useMemo(() => parseResult(saved ?? null), [saved]);
 
   const handleRematch = () => {
-    const savedSettings = localStorage.getItem(SETTINGS_KEY);
-    if (!savedSettings) {
+    if (!parseSettings(readStoredValue(SETTINGS_KEY))) {
       router.push("/settings");
       return;
     }
@@ -46,9 +30,11 @@ export default function ResultPage() {
   };
 
   const resultText = result
-    ? result.winner === result.playerOwner
-      ? "あなたの勝ち"
-      : "あなたの負け"
+    ? result.winner === null
+      ? "千日手（引き分け）"
+      : result.winner === result.playerOwner
+        ? "あなたの勝ち"
+        : "あなたの負け"
     : "結果未確定";
 
   return (
@@ -59,6 +45,14 @@ export default function ResultPage() {
           <div className="text-sm text-zinc-400">勝敗</div>
           <div className="mt-3 text-3xl font-semibold">{resultText}</div>
         </div>
+        {result?.reason === "perpetual-check" && (
+          <p className="text-sm text-zinc-400">
+            連続王手の千日手により対局終了
+          </p>
+        )}
+        {result?.showEvaluationGraph && result.evaluations.length > 0 && (
+          <EvaluationGraph entries={result.evaluations} />
+        )}
         <div className="flex flex-col gap-3 sm:flex-row">
           <button
             onClick={handleRematch}

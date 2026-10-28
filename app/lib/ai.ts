@@ -1,179 +1,21 @@
-import type { Board, Hands, Move, Owner } from "./types";
-import { pieceValues } from "./constants";
-import { applyMove } from "./moves";
-import { buildLegalMoves, canApplyPromotionOption, isInCheck } from "./rules";
-import { evaluate } from "./eval";
+import type { Board, Hands, Owner, PositionEvaluation } from "./types";
+import { localEvaluation, scoreForSente } from "./analysis";
+import { resolveLegalMove } from "./rules";
+import { chooseLocalAiMove } from "./search";
 
-export const isMoveGivingCheck = (
-  board: Board,
-  hands: Hands,
-  owner: Owner,
-  move: Move,
-) => {
-  const next = applyMove(board, hands, move, owner);
-  const opponent: Owner = owner === "w" ? "b" : "w";
-  return isInCheck(next.board, opponent);
-};
+export {
+  chooseLocalAiMove,
+  expandMovesForSearch,
+  minimax,
+  orderMoves,
+} from "./search";
 
-export const orderMoves = (
-  board: Board,
-  hands: Hands,
-  owner: Owner,
-  moves: Move[],
-) =>
-  [...moves].sort((a, b) => {
-    const aCapture = a.from ? board[a.to.r][a.to.c] : null;
-    const bCapture = b.from ? board[b.to.r][b.to.c] : null;
-    const aScore = aCapture ? pieceValues[aCapture.type] : 0;
-    const bScore = bCapture ? pieceValues[bCapture.type] : 0;
-    const aCheck = isMoveGivingCheck(board, hands, owner, a) ? 1 : 0;
-    const bCheck = isMoveGivingCheck(board, hands, owner, b) ? 1 : 0;
-    if (aCheck !== bCheck) return bCheck - aCheck;
-    return bScore - aScore;
-  });
+// A disabled capability is stable for the lifetime of the loaded application.
+let engineEvaluationDisabled = false;
 
-export const expandMovesForSearch = (
-  board: Board,
-  hands: Hands,
-  owner: Owner,
-  moves: Move[],
-) => {
-  const expanded: Move[] = [];
-  for (const move of moves) {
-    if (move.promotion === "optional") {
-      if (canApplyPromotionOption(board, hands, owner, move, "must")) {
-        expanded.push({ ...move, promotion: "must" });
-      }
-      if (canApplyPromotionOption(board, hands, owner, move, "none")) {
-        expanded.push({ ...move, promotion: "none" });
-      }
-    } else {
-      expanded.push(move);
-    }
-  }
-  return expanded;
-};
-
-export const minimax = (
-  board: Board,
-  hands: Hands,
-  depth: number,
-  alpha: number,
-  beta: number,
-  maximizing: boolean,
-): number => {
-  if (depth === 0) return evaluate(board, hands);
-  const owner: Owner = maximizing ? "w" : "b";
-  const legalMoves = buildLegalMoves(board, hands, owner);
-  const moves = expandMovesForSearch(board, hands, owner, legalMoves);
-  if (moves.length === 0) {
-    if (isInCheck(board, owner)) {
-      return owner === "w" ? -10000 : 10000;
-    }
-    return 0;
-  }
-
-  if (maximizing) {
-    let value = -Infinity;
-    for (const move of orderMoves(board, hands, owner, moves)) {
-      const next = applyMove(board, hands, move, owner);
-      const score = minimax(
-        next.board,
-        next.hands,
-        depth - 1,
-        alpha,
-        beta,
-        false,
-      );
-      value = Math.max(value, score);
-      alpha = Math.max(alpha, value);
-      if (beta <= alpha) break;
-    }
-    return value;
-  }
-
-  let value = Infinity;
-  for (const move of orderMoves(board, hands, owner, moves)) {
-    const next = applyMove(board, hands, move, owner);
-    const score = minimax(next.board, next.hands, depth - 1, alpha, beta, true);
-    value = Math.min(value, score);
-    beta = Math.min(beta, value);
-    if (beta <= alpha) break;
-  }
-  return value;
-};
-
-export const sumMaterial = (board: Board, hands: Hands) => {
-  let total = 0;
-  for (let r = 0; r < 9; r += 1) {
-    for (let c = 0; c < 9; c += 1) {
-      const cell = board[r][c];
-      if (!cell || cell.type === "K") continue;
-      total += pieceValues[cell.type];
-    }
-  }
-  for (const type of Object.keys(pieceValues)) {
-    const piece = type as keyof typeof pieceValues;
-    const count = hands.b[piece] + hands.w[piece];
-    total += count * pieceValues[piece];
-  }
-  return total;
-};
-
-export const chooseLocalAiMove = (
-  board: Board,
-  hands: Hands,
-  maxDepth: number,
-  timeMs: number,
-) => {
-  const legalMoves = buildLegalMoves(board, hands, "w");
-  const baseMoves = expandMovesForSearch(board, hands, "w", legalMoves);
-  if (baseMoves.length === 0) return null;
-
-  const material = sumMaterial(board, hands);
-  const endgame = material <= 24;
-  const start = Date.now();
-  let bestMove: Move | null = null;
-
-  for (let depth = 1; depth <= maxDepth; depth += 1) {
-    if (Date.now() - start > timeMs) break;
-    let localBestScore = -Infinity;
-    let localBestMoves: Move[] = [];
-    const ordered = orderMoves(board, hands, "w", baseMoves);
-
-    for (const move of ordered) {
-      if (Date.now() - start > timeMs) break;
-      const next = applyMove(board, hands, move, "w");
-      const score = minimax(
-        next.board,
-        next.hands,
-        depth - 1,
-        -Infinity,
-        Infinity,
-        false,
-      );
-      const bonus =
-        endgame && isMoveGivingCheck(board, hands, "w", move) ? 0.5 : 0;
-      const scored = score + bonus;
-      if (scored > localBestScore) {
-        localBestScore = scored;
-        localBestMoves = [move];
-      } else if (scored === localBestScore) {
-        localBestMoves.push(move);
-      }
-    }
-
-    if (localBestMoves.length > 0) {
-      bestMove =
-        localBestMoves[Math.floor(Math.random() * localBestMoves.length)];
-    }
-  }
-
-  if (!bestMove) {
-    const fallback = orderMoves(board, hands, "w", baseMoves);
-    return fallback[0] ?? baseMoves[0];
-  }
-  return bestMove;
+const requestSignal = (signal?: AbortSignal) => {
+  const timeout = AbortSignal.timeout(25000);
+  return signal ? AbortSignal.any([signal, timeout]) : timeout;
 };
 
 export const chooseAiMove = async (
@@ -181,7 +23,10 @@ export const chooseAiMove = async (
   hands: Hands,
   maxDepth: number,
   timeMs: number,
+  owner: Owner = "w",
+  signal?: AbortSignal,
 ) => {
+  signal?.throwIfAborted();
   if (typeof window !== "undefined") {
     try {
       const response = await fetch("/api/ai", {
@@ -190,20 +35,47 @@ export const chooseAiMove = async (
         body: JSON.stringify({
           board,
           hands,
-          turn: "w",
+          turn: owner,
           depth: maxDepth,
           timeMs,
         }),
+        signal: requestSignal(signal),
       });
       if (response.ok) {
-        const data = (await response.json()) as { move?: Move | null };
-        if (data.move) return data.move;
+        const data = (await response.json()) as { move?: unknown };
+        const move = resolveLegalMove(board, hands, owner, data.move);
+        if (move) return move;
       }
-    } catch {
+    } catch (error) {
+      if (signal?.aborted) throw error;
       // ignore and fallback
     }
   }
-  return chooseLocalAiMove(board, hands, maxDepth, timeMs);
+  signal?.throwIfAborted();
+  if (typeof Worker !== "undefined") {
+    try {
+      const { searchInWorker } = await import("./local-search-client");
+      return await searchInWorker(
+        board,
+        hands,
+        maxDepth,
+        timeMs,
+        owner,
+        signal,
+      );
+    } catch (error) {
+      if (signal?.aborted) throw error;
+      // A blocked or failed Worker still gets the bounded compatibility search.
+    }
+  }
+  // Compatibility path for environments without Web Workers; keep it short.
+  return chooseLocalAiMove(
+    board,
+    hands,
+    Math.min(maxDepth, 2),
+    Math.min(timeMs, 100),
+    owner,
+  );
 };
 
 export const evaluatePosition = async (
@@ -212,9 +84,14 @@ export const evaluatePosition = async (
   turn: Owner,
   depth: number,
   timeMs: number,
-) => {
-  if (process.env.NEXT_PUBLIC_EVAL_MODE === "local") {
-    return null;
+  signal?: AbortSignal,
+): Promise<PositionEvaluation> => {
+  signal?.throwIfAborted();
+  if (
+    process.env.NEXT_PUBLIC_EVAL_MODE === "local" ||
+    engineEvaluationDisabled
+  ) {
+    return localEvaluation(board, hands, 0);
   }
 
   if (typeof window !== "undefined") {
@@ -230,15 +107,23 @@ export const evaluatePosition = async (
           timeMs,
           mode: "evaluate",
         }),
+        signal: requestSignal(signal),
       });
       if (response.ok) {
-        const data = (await response.json()) as { score?: number | null };
-        if (typeof data.score === "number") return data.score;
+        const data = (await response.json()) as {
+          score?: number | null;
+          disabled?: boolean;
+        };
+        if (data.disabled === true) engineEvaluationDisabled = true;
+        if (typeof data.score === "number" && Number.isFinite(data.score)) {
+          return { score: scoreForSente(data.score, turn), source: "engine" };
+        }
       }
-    } catch {
+    } catch (error) {
+      if (signal?.aborted) throw error;
       // ignore and fallback
     }
   }
 
-  return null;
+  return localEvaluation(board, hands, 0);
 };

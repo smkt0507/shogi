@@ -22,6 +22,231 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.game-screen {
+  min-height: 100dvh;
+}
+
+.game-layout {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  width: 100%;
+  max-width: 1440px;
+  height: 100dvh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+}
+
+.game-board-column {
+  --game-cell-size: max(18px, min(64px, calc((100cqw - 48px) / 9), calc((100cqh - 200px) / 9)));
+  container-type: size;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  grid-row: 2;
+}
+
+.game-mobile-status {
+  grid-row: 1;
+  align-self: start;
+}
+
+.game-mobile-tools {
+  display: grid;
+  grid-row: 3;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #27272a;
+  border-radius: 18px;
+  background: #18181b;
+}
+
+.game-tool-button {
+  display: flex;
+  min-height: 58px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 12px;
+  color: #d4d4d8;
+  font-size: 12px;
+}
+
+.game-tool-button:hover,
+.game-tool-button:focus-visible {
+  background: #27272a;
+  color: #7dd3fc;
+}
+
+.game-sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85dvh;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #3f3f46;
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+  background: #09090b;
+  color: #f4f4f5;
+  box-shadow: 0 -16px 48px #0008;
+}
+
+.game-sheet[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-sheet::backdrop {
+  background: #000a;
+}
+
+.game-sheet-handle {
+  width: 36px;
+  height: 4px;
+  flex-shrink: 0;
+  margin: 10px auto 12px;
+  border-radius: 999px;
+  background: #52525b;
+}
+
+.game-sheet-tabs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  flex-shrink: 0;
+  margin: 0 16px;
+  padding: 4px;
+  border: 1px solid #27272a;
+  border-radius: 12px;
+  background: #18181b;
+}
+
+.game-sheet-tabs button {
+  min-height: 40px;
+  border-radius: 8px;
+  color: #a1a1aa;
+  font-size: 13px;
+}
+
+.game-sheet-tabs button[aria-selected="true"] {
+  background: #3f3f46;
+  color: #fafafa;
+}
+
+.game-sheet-body {
+  min-height: 0;
+  padding: 16px 16px max(16px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.game-sidebar {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.game-sidebar-left {
+  grid-row: 2;
+}
+
+.game-sidebar-right {
+  grid-row: 3;
+}
+
+.game-hands-panel {
+  width: min(100%, calc(var(--game-cell-size) * 9 + 48px));
+}
+
+.game-kifu-list {
+  height: 192px;
+}
+
+@media (min-width: 1024px) {
+  .game-layout {
+    gap: 16px;
+    padding: 16px;
+    grid-template-columns: minmax(200px, 240px) minmax(0, 1fr) minmax(240px, 280px);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .game-sidebar-left,
+  .game-board-column,
+  .game-sidebar-right {
+    grid-row: 1;
+  }
+
+  .game-sidebar-left {
+    grid-column: 1;
+    justify-content: space-between;
+  }
+
+  .game-board-column {
+    grid-column: 2;
+  }
+
+  .game-sidebar-right {
+    grid-column: 3;
+  }
+
+  .game-kifu {
+    flex: 1;
+  }
+
+  .game-kifu-list {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+@media (max-width: 1023px) and (orientation: landscape) {
+  .game-layout {
+    gap: 8px;
+    padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+  }
+
+  .game-board-column {
+    --game-cell-size: max(14px, min(40px, calc((100cqw - 296px) / 9), calc((100cqh - 48px) / 9)));
+    flex-direction: row;
+  }
+
+  .game-hands-panel {
+    width: 112px;
+    flex-shrink: 0;
+  }
+
+  .game-hands-panel > :last-child {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .game-tool-button {
+    min-height: 44px;
+    flex-direction: row;
+    gap: 8px;
+  }
+}
+
+.game-board-column .shogi-board {
+  --cell-size: var(--game-cell-size);
+}
+
 .shogi-board {
   --cell-size: clamp(36px, 7.5vw, 64px);
   background:
@@ -31,7 +256,7 @@ body {
   border: 10px solid #8a5e2f;
   border-radius: 0;
   box-shadow: 0 18px 30px rgba(0, 0, 0, 0.25);
-  width: calc(var(--cell-size) * 9 + 51px);
+  width: calc(var(--cell-size) * 9 + 48px);
   max-width: 100%;
   padding: 6px;
   box-sizing: border-box;
@@ -101,9 +326,29 @@ body {
   transform: rotate(180deg);
 }
 
+.shogi-cell.is-hint-from {
+  outline: 3px solid #0284c7;
+  outline-offset: -3px;
+}
+
+.shogi-hint-target {
+  position: absolute;
+  inset: 22%;
+  z-index: 1;
+  border: 3px solid #0284c7;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.25);
+  pointer-events: none;
+}
+
 .hand-piece-image {
   width: 28px;
   height: 28px;
   object-fit: contain;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+.hand-piece-image.is-compact {
+  width: 24px;
+  height: 24px;
 }

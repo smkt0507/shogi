@@ -1,15 +1,16 @@
 import type { PieceType } from "./types";
 
-export const pieceLabel: Record<PieceType, { base: string; promoted: string }> = {
-  P: { base: "歩", promoted: "と" },
-  L: { base: "香", promoted: "杏" },
-  N: { base: "桂", promoted: "圭" },
-  S: { base: "銀", promoted: "全" },
-  G: { base: "金", promoted: "金" },
-  B: { base: "角", promoted: "馬" },
-  R: { base: "飛", promoted: "竜" },
-  K: { base: "玉", promoted: "玉" },
-};
+export const pieceLabel: Record<PieceType, { base: string; promoted: string }> =
+  {
+    P: { base: "歩", promoted: "と" },
+    L: { base: "香", promoted: "杏" },
+    N: { base: "桂", promoted: "圭" },
+    S: { base: "銀", promoted: "全" },
+    G: { base: "金", promoted: "金" },
+    B: { base: "角", promoted: "馬" },
+    R: { base: "飛", promoted: "竜" },
+    K: { base: "玉", promoted: "玉" },
+  };
 
 export const handOrder: PieceType[] = ["R", "B", "G", "S", "N", "L", "P"];
 
