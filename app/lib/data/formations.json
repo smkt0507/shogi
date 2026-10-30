@@ -1,0 +1,5402 @@
+{
+  "$schema": "./formations.schema.json",
+  "version": 2,
+  "formations": [
+    {
+      "id": "kata_mino",
+      "name": "片美濃囲い",
+      "reading": "かたみのがこい",
+      "kind": "castle",
+      "tagline": "小さく囲い、機敏に動く。",
+      "description": "２八の玉を３八の銀と４九の金で守る形。美濃囲いへの発展も狙えます。",
+      "example": [
+        ["K", 2, 8],
+        ["S", 3, 8],
+        ["G", 4, 9]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 2, 8],
+              ["S", 3, 8],
+              ["G", 4, 9]
+            ]
+          }
+        ]
+      },
+      "aliases": ["片美濃"],
+      "family": "美濃系",
+      "parentId": "mino"
+    },
+    {
+      "id": "mino",
+      "name": "美濃囲い",
+      "reading": "みのがこい",
+      "kind": "castle",
+      "tagline": "金銀連結、堅き守り。",
+      "description": "玉を右に寄せ、銀と二枚の金で守る基本形。左右を反転した配置にも対応します。",
+      "example": [
+        ["K", 2, 8],
+        ["S", 3, 8],
+        ["G", 4, 9],
+        ["G", 5, 8]
+      ],
+      "sources": ["https://www.jti.co.jp/culture/shogi/guide/08/index.html"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 2, 8],
+              ["S", 3, 8],
+              ["G", 4, 9],
+              ["G", 5, 8]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["kata_mino"],
+      "aliases": ["本美濃"],
+      "family": "美濃系"
+    },
+    {
+      "id": "taka_mino",
+      "name": "高美濃囲い",
+      "reading": "たかみのがこい",
+      "kind": "castle",
+      "tagline": "金を高く、守りを厚く。",
+      "description": "美濃囲いの５八の金を４七へ進めた形。玉の上側への備えを増やします。",
+      "example": [
+        ["K", 2, 8],
+        ["S", 3, 8],
+        ["G", 4, 9],
+        ["G", 4, 7]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 2, 8],
+              ["S", 3, 8],
+              ["G", 4, 9],
+              ["G", 4, 7]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["mino"],
+      "aliases": ["高美濃"],
+      "family": "美濃系",
+      "parentId": "mino"
+    },
+    {
+      "id": "ginkan",
+      "name": "銀冠",
+      "reading": "ぎんかんむり",
+      "kind": "castle",
+      "tagline": "玉の頭上に、銀の冠。",
+      "description": "２七の銀を玉の前に置き、３八・４七の金を連結させる代表的な銀冠。",
+      "example": [
+        ["K", 2, 8],
+        ["S", 2, 7],
+        ["G", 3, 8],
+        ["G", 4, 7]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 2, 8],
+              ["S", 2, 7],
+              ["G", 3, 8],
+              ["G", 4, 7]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["taka_mino"],
+      "aliases": ["銀冠（振り飛車）"],
+      "family": "美濃系",
+      "parentId": "taka_mino"
+    },
+    {
+      "id": "diamond_mino",
+      "name": "ダイヤモンド美濃",
+      "reading": "だいやもんどみの",
+      "kind": "castle",
+      "tagline": "四枚の金銀、菱に結ぶ。",
+      "description": "美濃囲いに４七の銀を加えた形。金銀四枚のつながりを作ります。",
+      "example": [
+        ["K", 2, 8],
+        ["S", 3, 8],
+        ["G", 4, 9],
+        ["G", 5, 8],
+        ["S", 4, 7]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 2, 8],
+              ["S", 3, 8],
+              ["G", 4, 9],
+              ["G", 5, 8],
+              ["S", 4, 7]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["mino"],
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "yagura",
+      "name": "矢倉囲い",
+      "reading": "やぐらがこい",
+      "kind": "castle",
+      "tagline": "金銀の城、ここに築く。",
+      "description": "８八玉・７七銀・７八金・６七金による金矢倉の基本形。",
+      "example": [
+        ["K", 8, 8],
+        ["S", 7, 7],
+        ["G", 7, 8],
+        ["G", 6, 7]
+      ],
+      "sources": ["https://www.jti.co.jp/culture/shogi/guide/08/index.html"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 8, 8],
+              ["S", 7, 7],
+              ["G", 7, 8],
+              ["G", 6, 7]
+            ]
+          }
+        ]
+      },
+      "aliases": ["金矢倉"],
+      "family": "矢倉系"
+    },
+    {
+      "id": "gin_yagura",
+      "name": "銀矢倉",
+      "reading": "ぎんやぐら",
+      "kind": "castle",
+      "tagline": "二枚の銀、城を支える。",
+      "description": "７七と６七に銀を並べ、７八の金と８八の玉を結ぶ形。",
+      "example": [
+        ["K", 8, 8],
+        ["S", 7, 7],
+        ["S", 6, 7],
+        ["G", 7, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 8, 8],
+              ["S", 7, 7],
+              ["S", 6, 7],
+              ["G", 7, 8]
+            ]
+          }
+        ]
+      },
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "kata_yagura",
+      "name": "片矢倉",
+      "reading": "かたやぐら",
+      "kind": "castle",
+      "tagline": "玉を浅く、金を近く。",
+      "description": "玉を７八に置き、７七銀・６七金・６八金で支える基本形。",
+      "example": [
+        ["K", 7, 8],
+        ["S", 7, 7],
+        ["G", 6, 7],
+        ["G", 6, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 7, 8],
+              ["S", 7, 7],
+              ["G", 6, 7],
+              ["G", 6, 8]
+            ]
+          }
+        ]
+      },
+      "aliases": ["天野矢倉"],
+      "family": "矢倉系",
+      "parentId": "yagura"
+    },
+    {
+      "id": "sou_yagura",
+      "name": "総矢倉",
+      "reading": "そうやぐら",
+      "kind": "castle",
+      "tagline": "金銀四枚、城に集う。",
+      "description": "金矢倉へ５七銀を加えた形。二枚の金と二枚の銀を守りに使います。",
+      "example": [
+        ["K", 8, 8],
+        ["S", 7, 7],
+        ["G", 7, 8],
+        ["G", 6, 7],
+        ["S", 5, 7]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 8, 8],
+              ["S", 7, 7],
+              ["G", 7, 8],
+              ["G", 6, 7],
+              ["S", 5, 7]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["yagura"],
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "anaguma",
+      "name": "穴熊囲い",
+      "reading": "あなぐまがこい",
+      "kind": "castle",
+      "tagline": "深く潜り、静かに構える。",
+      "description": "隅の玉を香・銀・二枚の金で守る基本形。右側と左側の両方に対応します。",
+      "example": [
+        ["K", 1, 9],
+        ["L", 1, 8],
+        ["S", 2, 8],
+        ["G", 3, 8],
+        ["G", 3, 9]
+      ],
+      "sources": ["https://www.jti.co.jp/culture/shogi/guide/08/index.html"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 1, 9],
+              ["L", 1, 8],
+              ["S", 2, 8],
+              ["G", 3, 8],
+              ["G", 3, 9]
+            ]
+          }
+        ]
+      },
+      "aliases": ["穴熊"],
+      "family": "穴熊系"
+    },
+    {
+      "id": "funa",
+      "name": "舟囲い",
+      "reading": "ふながこい",
+      "kind": "castle",
+      "tagline": "舟に乗り、攻めに備える。",
+      "description": "７八玉・７九銀・６九金・５八金の基本形。少ない手数で守りを整えます。",
+      "example": [
+        ["K", 7, 8],
+        ["S", 7, 9],
+        ["G", 6, 9],
+        ["G", 5, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 7, 8],
+              ["S", 7, 9],
+              ["G", 6, 9],
+              ["G", 5, 8]
+            ]
+          }
+        ]
+      },
+      "aliases": ["船囲い"],
+      "family": "舟囲い・急戦系"
+    },
+    {
+      "id": "kani",
+      "name": "カニ囲い",
+      "reading": "かにがこい",
+      "kind": "castle",
+      "tagline": "金銀を並べ、横に構える。",
+      "description": "６九玉の前に６八銀を置き、７八と５八の金で支える基本形。",
+      "example": [
+        ["K", 6, 9],
+        ["S", 6, 8],
+        ["G", 7, 8],
+        ["G", 5, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 6, 9],
+              ["S", 6, 8],
+              ["G", 7, 8],
+              ["G", 5, 8]
+            ]
+          }
+        ]
+      },
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "kinmusou",
+      "name": "金無双",
+      "reading": "きんむそう",
+      "kind": "castle",
+      "tagline": "並び立つ金、守りの要。",
+      "description": "３八玉の横に４八・５八の金を並べ、２八銀を添える形。",
+      "example": [
+        ["K", 3, 8],
+        ["S", 2, 8],
+        ["G", 4, 8],
+        ["G", 5, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 3, 8],
+              ["S", 2, 8],
+              ["G", 4, 8],
+              ["G", 5, 8]
+            ]
+          }
+        ]
+      },
+      "family": "金無双系",
+      "aliases": []
+    },
+    {
+      "id": "gangi",
+      "name": "雁木囲い",
+      "reading": "がんぎがこい",
+      "kind": "castle",
+      "tagline": "二枚の銀、中央を固める。",
+      "description": "角を８八に残し、６七銀・５七銀・７八金・５八金と６九玉を組み合わせた基本形。",
+      "example": [
+        ["K", 6, 9],
+        ["S", 6, 7],
+        ["S", 5, 7],
+        ["G", 7, 8],
+        ["G", 5, 8],
+        ["B", 8, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 6, 9],
+              ["S", 6, 7],
+              ["S", 5, 7],
+              ["G", 7, 8],
+              ["G", 5, 8],
+              ["B", 8, 8]
+            ]
+          }
+        ]
+      },
+      "aliases": ["雁木"],
+      "family": "その他の囲い"
+    },
+    {
+      "id": "elmo",
+      "name": "エルモ囲い",
+      "reading": "えるもがこい",
+      "kind": "castle",
+      "tagline": "低く連ねて、鋭く攻める。",
+      "description": "７八玉・６八銀・７九金に５九金を加えた形。低い位置に金銀をつなぎます。",
+      "example": [
+        ["K", 7, 8],
+        ["S", 6, 8],
+        ["G", 7, 9],
+        ["G", 5, 9]
+      ],
+      "sources": ["https://thirdfilerook.jp/about-elmo-castle/"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 7, 8],
+              ["S", 6, 8],
+              ["G", 7, 9],
+              ["G", 5, 9]
+            ]
+          }
+        ]
+      },
+      "aliases": ["エルモ", "elmo囲い"],
+      "family": "舟囲い・急戦系"
+    },
+    {
+      "id": "nakazumai",
+      "name": "中住まい",
+      "reading": "なかずまい",
+      "kind": "castle",
+      "tagline": "中央の玉、広く構える。",
+      "description": "玉を５八へ上げ、７八と３八に金を配置した代表形。玉の左右に動く余地を残します。",
+      "example": [
+        ["K", 5, 8],
+        ["G", 7, 8],
+        ["G", 3, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 5, 8],
+              ["G", 7, 8],
+              ["G", 3, 8]
+            ]
+          }
+        ]
+      },
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "shikenbisha",
+      "name": "四間飛車",
+      "reading": "しけんびしゃ",
+      "kind": "opening",
+      "tagline": "飛車を振り、機をうかがう。",
+      "description": "序盤に最初の飛車を6八へ動かし、同じ筋の歩を進めた基本形。後手は反転した位置で判定します。",
+      "example": [
+        ["R", 6, 8],
+        ["P", 6, 6]
+      ],
+      "sources": ["https://www.jti.co.jp/culture/shogi/guide/08/index.html"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 6, 8],
+              ["P", 6, 6]
+            ],
+            "originals": [["R", 2, 8, 6, 8]]
+          },
+          {
+            "pieces": [
+              ["R", 6, 8],
+              ["P", 6, 5]
+            ],
+            "originals": [["R", 2, 8, 6, 8]]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "四間飛車系",
+      "aliases": []
+    },
+    {
+      "id": "sankenbisha",
+      "name": "三間飛車",
+      "reading": "さんけんびしゃ",
+      "kind": "opening",
+      "tagline": "三筋の風、攻めを呼ぶ。",
+      "description": "序盤に最初の飛車を7八へ動かし、同じ筋の歩を進めた基本形。後手は反転した位置で判定します。",
+      "example": [
+        ["R", 7, 8],
+        ["P", 7, 6]
+      ],
+      "sources": ["https://thirdfilerook.jp/about-plenary-ishida-style/"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 7, 8],
+              ["P", 7, 6]
+            ],
+            "originals": [["R", 2, 8, 7, 8]]
+          },
+          {
+            "pieces": [
+              ["R", 7, 8],
+              ["P", 7, 5]
+            ],
+            "originals": [["R", 2, 8, 7, 8]]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "三間飛車系",
+      "aliases": []
+    },
+    {
+      "id": "nakabisha",
+      "name": "中飛車",
+      "reading": "なかびしゃ",
+      "kind": "opening",
+      "tagline": "中央に、突破の一手。",
+      "description": "序盤に最初の飛車を5八へ動かし、同じ筋の歩を進めた基本形。後手は反転した位置で判定します。",
+      "example": [
+        ["R", 5, 8],
+        ["P", 5, 6]
+      ],
+      "sources": ["https://www.jti.co.jp/culture/shogi/guide/08/index.html"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 5, 8],
+              ["P", 5, 6]
+            ],
+            "originals": [["R", 2, 8, 5, 8]]
+          },
+          {
+            "pieces": [
+              ["R", 5, 8],
+              ["P", 5, 5]
+            ],
+            "originals": [["R", 2, 8, 5, 8]]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "中飛車系",
+      "aliases": []
+    },
+    {
+      "id": "mukaibisha",
+      "name": "向かい飛車",
+      "reading": "むかいびしゃ",
+      "kind": "opening",
+      "tagline": "向き合う飛車、反撃の構え。",
+      "description": "序盤に最初の飛車を8八へ動かし、同じ筋の歩を進めた基本形。後手は反転した位置で判定します。",
+      "example": [
+        ["R", 8, 8],
+        ["P", 8, 6]
+      ],
+      "sources": [
+        "https://kifulog.shogi.or.jp/joryuoui/2025/05/post-4446.html"
+      ],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 8, 8],
+              ["P", 8, 6]
+            ],
+            "originals": [["R", 2, 8, 8, 8]]
+          },
+          {
+            "pieces": [
+              ["R", 8, 8],
+              ["P", 8, 5]
+            ],
+            "originals": [["R", 2, 8, 8, 8]]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "aliases": ["向飛車"],
+      "family": "向かい飛車系"
+    },
+    {
+      "id": "sodebisha",
+      "name": "袖飛車",
+      "reading": "そでびしゃ",
+      "kind": "opening",
+      "tagline": "袖に飛車、一筋を狙う。",
+      "description": "序盤に最初の飛車を3八へ動かし、同じ筋の歩を進めた基本形。後手は反転した位置で判定します。",
+      "example": [
+        ["R", 3, 8],
+        ["P", 3, 6]
+      ],
+      "sources": ["https://thirdfilerook.jp/about-sleeve-rook/"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 3, 8],
+              ["P", 3, 6]
+            ],
+            "originals": [["R", 2, 8, 3, 8]]
+          },
+          {
+            "pieces": [
+              ["R", 3, 8],
+              ["P", 3, 5]
+            ],
+            "originals": [["R", 2, 8, 3, 8]]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "migishikenbisha",
+      "name": "右四間飛車",
+      "reading": "みぎしけんびしゃ",
+      "kind": "opening",
+      "tagline": "飛銀一体、一点を穿つ。",
+      "description": "飛車を４八、最初の右銀を５六に進め、４筋の歩を突いた基本形。",
+      "example": [
+        ["R", 4, 8],
+        ["S", 5, 6],
+        ["P", 4, 6]
+      ],
+      "sources": ["https://www.jti.co.jp/culture/shogi/guide/08/index.html"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 4, 8],
+              ["S", 5, 6],
+              ["P", 4, 6]
+            ],
+            "originals": [
+              ["R", 2, 8, 4, 8],
+              ["S", 3, 9, 5, 6]
+            ]
+          },
+          {
+            "pieces": [
+              ["R", 4, 8],
+              ["S", 5, 6],
+              ["P", 4, 5]
+            ],
+            "originals": [
+              ["R", 2, 8, 4, 8],
+              ["S", 3, 9, 5, 6]
+            ]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "居飛車の攻め",
+      "aliases": []
+    },
+    {
+      "id": "bogin",
+      "name": "棒銀",
+      "reading": "ぼうぎん",
+      "kind": "opening",
+      "tagline": "銀、先陣を切る。",
+      "description": "２筋の歩を二つ進め、右銀を２六・２五・１五へ送り出す基本の攻め。",
+      "example": [
+        ["R", 2, 8],
+        ["S", 2, 6],
+        ["P", 2, 5]
+      ],
+      "sources": ["https://www.jti.co.jp/culture/shogi/guide/08/index.html"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 2, 8],
+              ["S", 2, 6]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 8],
+              ["S", 3, 9, 2, 6]
+            ],
+            "history": {
+              "moves": [["P", 2, 6, 2, 5]]
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 8],
+              ["S", 2, 5]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 8],
+              ["S", 3, 9, 2, 5]
+            ],
+            "history": {
+              "moves": [["P", 2, 6, 2, 5]]
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 8],
+              ["S", 1, 5]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 8],
+              ["S", 3, 9, 1, 5]
+            ],
+            "history": {
+              "moves": [["P", 2, 6, 2, 5]]
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 7],
+              ["S", 2, 6]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 7],
+              ["S", 3, 9, 2, 6]
+            ],
+            "history": {
+              "moves": [["P", 2, 6, 2, 5]]
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 7],
+              ["S", 2, 5]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 7],
+              ["S", 3, 9, 2, 5]
+            ],
+            "history": {
+              "moves": [["P", 2, 6, 2, 5]]
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 7],
+              ["S", 1, 5]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 7],
+              ["S", 3, 9, 1, 5]
+            ],
+            "history": {
+              "moves": [["P", 2, 6, 2, 5]]
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "銀の活用",
+      "aliases": []
+    },
+    {
+      "id": "ishida",
+      "name": "石田流本組み",
+      "reading": "いしだりゅうほんぐみ",
+      "kind": "opening",
+      "tagline": "飛角桂銀、攻めの布陣。",
+      "description": "７六飛・７五歩・７七桂・９七角・６七銀をそろえた代表的な本組み。",
+      "example": [
+        ["R", 7, 6],
+        ["P", 7, 5],
+        ["N", 7, 7],
+        ["B", 9, 7],
+        ["S", 6, 7]
+      ],
+      "sources": ["https://thirdfilerook.jp/about-plenary-ishida-style/"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 7, 6],
+              ["P", 7, 5],
+              ["N", 7, 7],
+              ["B", 9, 7],
+              ["S", 6, 7]
+            ],
+            "originals": [
+              ["R", 2, 8, 7, 6],
+              ["N", 8, 9, 7, 7],
+              ["B", 8, 8, 9, 7],
+              ["S", 7, 9, 6, 7]
+            ]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["sankenbisha", "hayaishida"],
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "hayaishida",
+      "name": "早石田",
+      "reading": "はやいしだ",
+      "kind": "opening",
+      "tagline": "囲う前に、飛車が走る。",
+      "description": "自分の８手目までに居玉・６七歩・８八角を残し、７五歩と７六飛を作る急戦の基本形。",
+      "example": [
+        ["K", 5, 9],
+        ["R", 7, 6],
+        ["P", 7, 5],
+        ["P", 6, 7],
+        ["B", 8, 8]
+      ],
+      "sources": ["https://thirdfilerook.jp/about-quick-ishida-attack/"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 5, 9],
+              ["R", 7, 6],
+              ["P", 7, 5],
+              ["P", 6, 7],
+              ["B", 8, 8]
+            ],
+            "originals": [
+              ["R", 2, 8, 7, 6],
+              ["B", 8, 8, 8, 8]
+            ]
+          }
+        ],
+        "maxOwnMoves": 8
+      },
+      "supersedes": ["sankenbisha"],
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "gokigen",
+      "name": "ゴキゲン中飛車",
+      "reading": "ごきげんなかびしゃ",
+      "kind": "opening",
+      "tagline": "角道を開き、中央へ。",
+      "description": "６筋の歩を動かさず、角道を開けて５筋の位を取る中飛車の代表形。同型の先手にも対応します。",
+      "example": [
+        ["R", 5, 8],
+        ["P", 5, 5],
+        ["P", 7, 6],
+        ["P", 6, 7],
+        ["B", 8, 8]
+      ],
+      "sources": ["https://gokigen.shin-gen.jp/"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 5, 8],
+              ["P", 5, 5],
+              ["P", 7, 6],
+              ["P", 6, 7],
+              ["B", 8, 8]
+            ],
+            "originals": [
+              ["R", 2, 8, 5, 8],
+              ["B", 8, 8, 8, 8]
+            ]
+          },
+          {
+            "pieces": [
+              ["R", 5, 8],
+              ["P", 5, 5],
+              ["P", 7, 5],
+              ["P", 6, 7],
+              ["B", 8, 8]
+            ],
+            "originals": [
+              ["R", 2, 8, 5, 8],
+              ["B", 8, 8, 8, 8]
+            ]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["nakabisha"],
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "kakugawari",
+      "name": "角換わり",
+      "reading": "かくがわり",
+      "kind": "opening",
+      "tagline": "角を手に、構想を描く。",
+      "description": "互いに居飛車を保ち、飛車先交換より先に最初の角同士を交換した形。角を取っただけでは判定しません。",
+      "example": [
+        ["R", 2, 8],
+        ["S", 7, 7]
+      ],
+      "sources": ["https://kifulog.shogi.or.jp/kisei/2009/07/post-16ce.html"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [["R", 2, 8]],
+            "originals": [["R", 2, 8, 2, 8]],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          },
+          {
+            "pieces": [["R", 2, 9]],
+            "originals": [["R", 2, 8, 2, 9]],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "角換わり系",
+      "aliases": []
+    },
+    {
+      "id": "kakukoukan_shiken",
+      "name": "角交換四間飛車",
+      "reading": "かくこうかんしけんびしゃ",
+      "kind": "opening",
+      "tagline": "角を交換、飛車を振る。",
+      "description": "最初の角同士を交換し、最初の飛車を６八へ振った基本形。６筋の歩を突かない形も対象です。",
+      "example": [["R", 6, 8]],
+      "sources": [
+        "https://www.jti.co.jp/culture/shogi/guide/08/index.html",
+        "https://kifulog.shogi.or.jp/kisei/2009/07/post-16ce.html"
+      ],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [["R", 6, 8]],
+            "originals": [["R", 2, 8, 6, 8]],
+            "history": {
+              "bishopExchange": "any"
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["shikenbisha"],
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "koshikakegin",
+      "name": "角換わり腰掛け銀",
+      "reading": "かくがわりこしかけぎん",
+      "kind": "opening",
+      "tagline": "歩に腰掛け、銀が構える。",
+      "description": "角換わりから、５七歩を残して右銀を５六に進める基本形。右四間飛車とは手順と飛車の位置で区別します。",
+      "example": [
+        ["R", 2, 8],
+        ["S", 5, 6],
+        ["P", 5, 7]
+      ],
+      "sources": ["https://kifulog.shogi.or.jp/kisei/2009/07/post-16ce.html"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 2, 8],
+              ["S", 5, 6],
+              ["P", 5, 7]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 8],
+              ["S", 3, 9, 5, 6]
+            ],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 9],
+              ["S", 5, 6],
+              ["P", 5, 7]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 9],
+              ["S", 3, 9, 5, 6]
+            ],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["kakugawari"],
+      "family": "角換わり系",
+      "aliases": [],
+      "parentId": "kakugawari"
+    },
+    {
+      "id": "hayakurigin",
+      "name": "角換わり早繰り銀",
+      "reading": "かくがわりはやくりぎん",
+      "kind": "opening",
+      "tagline": "銀を繰り、早く仕掛ける。",
+      "description": "角換わりから３筋の歩を進め、右銀を４六へ繰り出す基本形。",
+      "example": [
+        ["R", 2, 8],
+        ["S", 4, 6],
+        ["P", 3, 6]
+      ],
+      "sources": ["https://kifulog.shogi.or.jp/kisei/2009/07/post-16ce.html"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 2, 8],
+              ["S", 4, 6],
+              ["P", 3, 6]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 8],
+              ["S", 3, 9, 4, 6]
+            ],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 8],
+              ["S", 4, 6],
+              ["P", 3, 5]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 8],
+              ["S", 3, 9, 4, 6]
+            ],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 9],
+              ["S", 4, 6],
+              ["P", 3, 6]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 9],
+              ["S", 3, 9, 4, 6]
+            ],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          },
+          {
+            "pieces": [
+              ["R", 2, 9],
+              ["S", 4, 6],
+              ["P", 3, 5]
+            ],
+            "originals": [
+              ["R", 2, 8, 2, 9],
+              ["S", 3, 9, 4, 6]
+            ],
+            "history": {
+              "bishopExchange": "before-pawn-exchange",
+              "staticRooks": true
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["kakugawari"],
+      "family": "角換わり系",
+      "aliases": [],
+      "parentId": "kakugawari"
+    },
+    {
+      "id": "aigakari",
+      "name": "相掛かり",
+      "reading": "あいがかり",
+      "kind": "opening",
+      "tagline": "互いの飛車先、ぶつかり合う。",
+      "description": "互いの角道を閉じたまま、最初の飛車で両者が飛車先の歩を交換した形。双方の交換手順を確認します。",
+      "example": [
+        ["R", 2, 4],
+        ["P", 7, 7],
+        ["B", 8, 8]
+      ],
+      "sources": ["https://shoginote.com/aigakari"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 2, 4],
+              ["P", 7, 7],
+              ["B", 8, 8]
+            ],
+            "originals": [["R", 2, 8, 2, 4]],
+            "history": {
+              "pawnExchanges": "both",
+              "staticRooks": true,
+              "bishopsPresent": true
+            },
+            "opponentPieces": [["P", 3, 3]]
+          },
+          {
+            "pieces": [
+              ["R", 2, 6],
+              ["P", 7, 7],
+              ["B", 8, 8]
+            ],
+            "originals": [["R", 2, 8, 2, 6]],
+            "history": {
+              "pawnExchanges": "both",
+              "staticRooks": true,
+              "bishopsPresent": true
+            },
+            "opponentPieces": [["P", 3, 3]]
+          },
+          {
+            "pieces": [
+              ["R", 2, 8],
+              ["P", 7, 7],
+              ["B", 8, 8]
+            ],
+            "originals": [["R", 2, 8, 2, 8]],
+            "history": {
+              "pawnExchanges": "both",
+              "staticRooks": true,
+              "bishopsPresent": true
+            },
+            "opponentPieces": [["P", 3, 3]]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "相掛かり系",
+      "aliases": []
+    },
+    {
+      "id": "yokofudori",
+      "name": "横歩取り",
+      "reading": "よこふどり",
+      "kind": "opening",
+      "tagline": "横の一歩を、飛車で奪う。",
+      "description": "双方の飛車先交換後、２四の飛車で３四の歩を取った形。実際の歩取りと、角が盤上に残っていることを確認します。",
+      "example": [
+        ["R", 3, 4],
+        ["B", 8, 8]
+      ],
+      "sources": ["https://shoginote.com/yokofudori"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 3, 4],
+              ["B", 8, 8]
+            ],
+            "originals": [["R", 2, 8, 3, 4]],
+            "history": {
+              "pawnExchanges": "both",
+              "bishopsPresent": true,
+              "moves": [["R", 2, 4, 3, 4, "P"]]
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["aigakari"],
+      "family": "横歩取り系",
+      "aliases": []
+    },
+    {
+      "id": "millennium",
+      "name": "ミレニアム",
+      "reading": "みれにあむ",
+      "kind": "castle",
+      "tagline": "桂を跳ね、玉は奥へ。",
+      "description": "８九玉・８八銀・７九金・７八金・７七桂をそろえた代表形。トーチカとも呼ばれます。",
+      "example": [
+        ["K", 8, 9],
+        ["S", 8, 8],
+        ["G", 7, 9],
+        ["G", 7, 8],
+        ["N", 7, 7]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 8, 9],
+              ["S", 8, 8],
+              ["G", 7, 9],
+              ["G", 7, 8],
+              ["N", 7, 7]
+            ]
+          }
+        ]
+      },
+      "aliases": ["ミレニアム囲い"],
+      "family": "その他の囲い"
+    },
+    {
+      "id": "ginkan_anaguma",
+      "name": "銀冠穴熊",
+      "reading": "ぎんかんむりあなぐま",
+      "kind": "castle",
+      "tagline": "銀の冠、穴熊の城。",
+      "description": "９九の玉を９八香・８七銀・８八金・７八金で支える基本形。",
+      "example": [
+        ["K", 9, 9],
+        ["L", 9, 8],
+        ["S", 8, 7],
+        ["G", 8, 8],
+        ["G", 7, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 9, 9],
+              ["L", 9, 8],
+              ["S", 8, 7],
+              ["G", 8, 8],
+              ["G", 7, 8]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["anaguma", "ginkan"],
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "tenshukaku",
+      "name": "天守閣美濃",
+      "reading": "てんしゅかくみの",
+      "kind": "castle",
+      "tagline": "玉を高く、城を見渡す。",
+      "description": "８七玉・７八銀・６九金・５八金の基本形。玉を一段上げて構えます。",
+      "example": [
+        ["K", 8, 7],
+        ["S", 7, 8],
+        ["G", 6, 9],
+        ["G", 5, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 8, 7],
+              ["S", 7, 8],
+              ["G", 6, 9],
+              ["G", 5, 8]
+            ]
+          }
+        ]
+      },
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "hidari_mino",
+      "name": "左美濃",
+      "reading": "ひだりみの",
+      "kind": "castle",
+      "tagline": "飛車を据え、左に囲う。",
+      "description": "居飛車の飛車を２八に残し、８八玉・７八銀・６九金・５八金を作った形。",
+      "example": [
+        ["K", 8, 8],
+        ["S", 7, 8],
+        ["G", 6, 9],
+        ["G", 5, 8],
+        ["R", 2, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 8, 8],
+              ["S", 7, 8],
+              ["G", 6, 9],
+              ["G", 5, 8],
+              ["R", 2, 8]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["mino"],
+      "aliases": ["左美濃（対振り飛車）", "左美濃（相居飛車）"],
+      "family": "美濃系",
+      "parentId": "mino"
+    },
+    {
+      "id": "nakahara",
+      "name": "中原囲い",
+      "reading": "なかはらがこい",
+      "kind": "castle",
+      "tagline": "低い金銀、玉を包む。",
+      "description": "６九玉・７八金・５九金・８八銀・４八銀をそろえた代表的な配置。",
+      "example": [
+        ["K", 6, 9],
+        ["G", 7, 8],
+        ["G", 5, 9],
+        ["S", 8, 8],
+        ["S", 4, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 6, 9],
+              ["G", 7, 8],
+              ["G", 5, 9],
+              ["S", 8, 8],
+              ["S", 4, 8]
+            ]
+          }
+        ]
+      },
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "kikusui",
+      "name": "菊水矢倉",
+      "reading": "きくすいやぐら",
+      "kind": "castle",
+      "tagline": "低く構える、矢倉の城。",
+      "description": "８九玉・８八銀・７七桂・７八金・６七金の形。しゃがみ矢倉という別名もあります。",
+      "example": [
+        ["K", 8, 9],
+        ["S", 8, 8],
+        ["N", 7, 7],
+        ["G", 7, 8],
+        ["G", 6, 7]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 8, 9],
+              ["S", 8, 8],
+              ["N", 7, 7],
+              ["G", 7, 8],
+              ["G", 6, 7]
+            ]
+          }
+        ]
+      },
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "hakoiri",
+      "name": "箱入り娘",
+      "reading": "はこいりむすめ",
+      "kind": "castle",
+      "tagline": "玉のそばに、金を寄せる。",
+      "description": "舟囲いの５八金を６八へ寄せ、７八玉・７九銀・６九金とつなげた形。",
+      "example": [
+        ["K", 7, 8],
+        ["S", 7, 9],
+        ["G", 6, 9],
+        ["G", 6, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 7, 8],
+              ["S", 7, 9],
+              ["G", 6, 9],
+              ["G", 6, 8]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["funa"],
+      "family": "舟囲い・急戦系",
+      "aliases": [],
+      "parentId": "funa"
+    },
+    {
+      "id": "matsuo_anaguma",
+      "name": "松尾流穴熊",
+      "reading": "まつおりゅうあなぐま",
+      "kind": "castle",
+      "tagline": "二枚の銀、穴熊を支える。",
+      "description": "９九玉・９八香・８八銀・７九銀・７八金・６七金をそろえた代表的な四枚穴熊。",
+      "example": [
+        ["K", 9, 9],
+        ["L", 9, 8],
+        ["S", 8, 8],
+        ["S", 7, 9],
+        ["G", 7, 8],
+        ["G", 6, 7]
+      ],
+      "sources": ["https://shogi-joutatsu.com/archives/6021"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 9, 9],
+              ["L", 9, 8],
+              ["S", 8, 8],
+              ["S", 7, 9],
+              ["G", 7, 8],
+              ["G", 6, 7]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["anaguma"],
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "big4",
+      "name": "ビッグ４",
+      "reading": "びっぐふぉー",
+      "kind": "castle",
+      "tagline": "金銀四枚、守りを重ねる。",
+      "description": "銀冠穴熊に７七銀を加え、８七銀・７七銀・８八金・７八金で９九の玉を支える形。",
+      "example": [
+        ["K", 9, 9],
+        ["L", 9, 8],
+        ["S", 8, 7],
+        ["S", 7, 7],
+        ["G", 8, 8],
+        ["G", 7, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 9, 9],
+              ["L", 9, 8],
+              ["S", 8, 7],
+              ["S", 7, 7],
+              ["G", 8, 8],
+              ["G", 7, 8]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["ginkan_anaguma"],
+      "aliases": ["ビッグ4"],
+      "family": "穴熊系",
+      "parentId": "ginkan_anaguma"
+    },
+    {
+      "id": "kin_mino",
+      "name": "金美濃",
+      "reading": "きんみの",
+      "kind": "castle",
+      "tagline": "金を先に、銀を添える。",
+      "description": "２八玉を３八金・４八銀で守る金美濃の基本形。",
+      "example": [
+        ["K", 2, 8],
+        ["G", 3, 8],
+        ["S", 4, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 2, 8],
+              ["G", 3, 8],
+              ["S", 4, 8]
+            ]
+          }
+        ]
+      },
+      "aliases": ["金美濃（振り飛車）"],
+      "family": "美濃系",
+      "parentId": "mino"
+    },
+    {
+      "id": "kimura_mino",
+      "name": "木村美濃",
+      "reading": "きむらみの",
+      "kind": "castle",
+      "tagline": "金銀連携、斜めに備える。",
+      "description": "２八玉・３八金・４七銀の基本形。金美濃から銀を一段上げた配置です。",
+      "example": [
+        ["K", 2, 8],
+        ["G", 3, 8],
+        ["S", 4, 7]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 2, 8],
+              ["G", 3, 8],
+              ["S", 4, 7]
+            ]
+          }
+        ]
+      },
+      "supersedes": ["kin_mino"],
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "kin_mino"
+    },
+    {
+      "id": "migi_gyoku",
+      "name": "右玉",
+      "reading": "みぎぎょく",
+      "kind": "castle",
+      "tagline": "右に玉、飛車は下段へ。",
+      "description": "４八玉・２九飛・６七銀・４七銀・７八金・５八金をそろえたツノ銀型の一例。",
+      "example": [
+        ["K", 4, 8],
+        ["R", 2, 9],
+        ["S", 6, 7],
+        ["S", 4, 7],
+        ["G", 7, 8],
+        ["G", 5, 8]
+      ],
+      "sources": ["https://shoginote.com/castles"],
+      "recognition": {
+        "mirror": true,
+        "patterns": [
+          {
+            "pieces": [
+              ["K", 4, 8],
+              ["R", 2, 9],
+              ["S", 6, 7],
+              ["S", 4, 7],
+              ["G", 7, 8],
+              ["G", 5, 8]
+            ]
+          }
+        ]
+      },
+      "aliases": ["ツノ銀型右玉"],
+      "family": "右玉・左玉"
+    },
+    {
+      "id": "hineribisha",
+      "name": "ひねり飛車",
+      "reading": "ひねりびしゃ",
+      "kind": "opening",
+      "tagline": "飛車先から、七筋へ転じる。",
+      "description": "最初の飛車で２筋の歩を交換してから７六へ転じ、７五歩・７七桂と組んだ代表形。単に飛車を浮かせただけでは成立しません。",
+      "example": [
+        ["R", 7, 6],
+        ["P", 7, 5],
+        ["N", 7, 7]
+      ],
+      "sources": ["https://ja.wikipedia.org/wiki/ひねり飛車"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 7, 6],
+              ["P", 7, 5],
+              ["N", 7, 7]
+            ],
+            "originals": [
+              ["R", 2, 8, 7, 6],
+              ["N", 8, 9, 7, 7]
+            ],
+            "history": {
+              "pawnExchanges": "self"
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ureshino",
+      "name": "嬉野流",
+      "reading": "うれしのりゅう",
+      "kind": "opening",
+      "tagline": "銀が先行、角は後ろへ。",
+      "description": "自分の初手を７九銀から６八銀とし、８八の角を７九へ引く基本の出だし。７七歩は動かさずに残します。",
+      "example": [
+        ["S", 6, 8],
+        ["B", 7, 9],
+        ["P", 7, 7]
+      ],
+      "sources": ["https://shoginote.com/other/ureshino"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["S", 6, 8],
+              ["B", 7, 9],
+              ["P", 7, 7]
+            ],
+            "originals": [
+              ["S", 7, 9, 6, 8],
+              ["B", 8, 8, 7, 9]
+            ],
+            "history": {
+              "firstMove": ["S", 7, 9, 6, 8]
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "kakukoukan_sanken",
+      "name": "角交換三間飛車",
+      "reading": "かくこうかんさんけんびしゃ",
+      "kind": "opening",
+      "tagline": "角を手に、三間へ振る。",
+      "description": "最初の角同士を交換し、最初の飛車を７八へ振った基本形。",
+      "example": [["R", 7, 8]],
+      "sources": [
+        "https://thirdfilerook.jp/about-sugai-style-third-file-rook/"
+      ],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [["R", 7, 8]],
+            "originals": [["R", 2, 8, 7, 8]],
+            "history": {
+              "bishopExchange": "any"
+            }
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["sankenbisha"],
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "tsunogin_nakabisha",
+      "name": "ツノ銀中飛車",
+      "reading": "つのぎんなかびしゃ",
+      "kind": "opening",
+      "tagline": "中央の飛車、両脇に銀。",
+      "description": "５八飛・６七銀・４七銀に５六歩と６六歩を添えた代表的なツノ銀中飛車。",
+      "example": [
+        ["R", 5, 8],
+        ["S", 6, 7],
+        ["S", 4, 7],
+        ["P", 5, 6],
+        ["P", 6, 6]
+      ],
+      "sources": ["https://ja.wikipedia.org/wiki/ツノ銀中飛車"],
+      "recognition": {
+        "mirror": false,
+        "patterns": [
+          {
+            "pieces": [
+              ["R", 5, 8],
+              ["S", 6, 7],
+              ["S", 4, 7],
+              ["P", 5, 6],
+              ["P", 6, 6]
+            ],
+            "originals": [
+              ["R", 2, 8, 5, 8],
+              ["S", 7, 9, 6, 7],
+              ["S", 3, 9, 4, 7]
+            ]
+          }
+        ],
+        "maxOwnMoves": 30
+      },
+      "supersedes": ["nakabisha"],
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_castle_fb53c2fa8679",
+      "name": "振り飛車穴熊",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_6072122e8840",
+      "name": "金立美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "aliases": ["大隅囲い"],
+      "family": "美濃系",
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_08395267375b",
+      "name": "振り飛車ミレニアム",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_771de6a5da5a",
+      "name": "早美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "aliases": ["早囲い"],
+      "family": "美濃系",
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_aaa831b62a31",
+      "name": "片銀冠",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_1c8d6b1dec45",
+      "name": "対振り金無双",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "aliases": ["振り飛車金無双"],
+      "family": "金無双系",
+      "parentId": "kinmusou"
+    },
+    {
+      "id": "ref_castle_3ef191696eb5",
+      "name": "ずれ美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_98ff6ca2399b",
+      "name": "振り飛車エルモ",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "舟囲い・急戦系",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_c74e4587adc0",
+      "name": "四枚美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_0857462fcb49",
+      "name": "裾固め",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_1c2ad14db1cb",
+      "name": "大山美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_0bb3c064891b",
+      "name": "銀美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_0a98aa8b34a3",
+      "name": "美濃熊囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_b94ae541ba13",
+      "name": "ちょんまげ美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_9c86aa233de3",
+      "name": "居飛車穴熊",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_d5d6ad5dec5e",
+      "name": "舟囲いDX",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "舟囲い・急戦系",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_c9a8f9337267",
+      "name": "居飛車銀冠",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "aliases": ["銀冠（対振り飛車）", "銀冠（相居飛車）"],
+      "family": "美濃系",
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_5027a10849ff",
+      "name": "糸谷流右玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_1fb9e24c4422",
+      "name": "金盾囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "舟囲い・急戦系",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_5fb8390dfe9d",
+      "name": "大盾囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "舟囲い・急戦系",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_e450e7d36811",
+      "name": "居飛車金美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_dc875ef97636",
+      "name": "端玉銀冠",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_362667158c42",
+      "name": "角道不突美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_fc4a6ffbbbd8",
+      "name": "ツノ銀囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_ccb156be2204",
+      "name": "串カツ囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_81add4a7a805",
+      "name": "文鎮囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_07abec95881a",
+      "name": "高田流左玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_0b6ec0759035",
+      "name": "5筋位取り",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_c23f7bb74583",
+      "name": "オリジナル雁木",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_73b9fb8599ca",
+      "name": "玉頭位取り",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_5e6f38408f3b",
+      "name": "トラック囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_41636415baff",
+      "name": "6筋位取り",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_0d2bc090e5c8",
+      "name": "高矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_f1467763f112",
+      "name": "▲7八金型天守閣囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_93fb33da6187",
+      "name": "かんぴょう囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_fa01e8d6e31f",
+      "name": "四枚穴熊",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_c2b9d7ae70b7",
+      "name": "片穴熊",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_77a89a9815d3",
+      "name": "居飛穴音無しの構え",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_0640fc7d8b0f",
+      "name": "神吉流穴熊",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_4798bdb42c3f",
+      "name": "新型雁木",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_d1606aa398ca",
+      "name": "土居矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_71fb9b8a22de",
+      "name": "いちご囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "aliases": ["イチゴ囲い"],
+      "family": "その他の囲い"
+    },
+    {
+      "id": "ref_castle_67c30adf8685",
+      "name": "カブト囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_74a83b8cf144",
+      "name": "居飛車金無双",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "aliases": ["金無双（相居飛車）"],
+      "family": "金無双系",
+      "parentId": "kinmusou"
+    },
+    {
+      "id": "ref_castle_2947f960ae26",
+      "name": "オールド雁木",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_927f3e145eaf",
+      "name": "△4四銀型左美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_5232546d826a",
+      "name": "桐山流中原囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_9586a826a302",
+      "name": "升田美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_27259adea620",
+      "name": "角換わり右玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_f23c16d7f175",
+      "name": "三段右玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_f6e1859c13e0",
+      "name": "角換わり穴熊",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_9eaa315c94f4",
+      "name": "ボナンザ囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_bc5d75c8f7a0",
+      "name": "雁木右玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_611bceb30f1f",
+      "name": "カタ囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_c816fff54fe5",
+      "name": "坊主美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_c4894075d38e",
+      "name": "カブト美濃",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_34921eef67cb",
+      "name": "アヒル囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_b483081b5f48",
+      "name": "カギ囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_a4d2b1911cb2",
+      "name": "銀立ち矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_73468a50896a",
+      "name": "菱矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_a14590df8ec0",
+      "name": "へこみ矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_97a7dbb08a01",
+      "name": "四角矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_439dc4354f99",
+      "name": "流れ矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_88201202da04",
+      "name": "矢倉穴熊",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_castle_3f2a2854ba17",
+      "name": "富士見矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_26b93cd2fc1d",
+      "name": "隅矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_3d08e4366cbd",
+      "name": "矢倉右玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_6ee54863aaf3",
+      "name": "一文字矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_2d6ebeb473cd",
+      "name": "金門矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_669fb5c7e7e4",
+      "name": "角矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_7fd113986d67",
+      "name": "無責任矢倉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_4f6cba79929b",
+      "name": "いかだ囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_ef054c42b6b7",
+      "name": "離れ金無双",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "金無双系",
+      "aliases": [],
+      "parentId": "kinmusou"
+    },
+    {
+      "id": "ref_castle_fb5ab31759aa",
+      "name": "角換わり羽生流右玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_87c3e714904e",
+      "name": "▲7七金型雁木",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_bbab8e5686de",
+      "name": "金冠",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_castle_fbe477b1cea4",
+      "name": "平目囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "aliases": ["ヒラメ囲い", "平目"],
+      "family": "その他の囲い"
+    },
+    {
+      "id": "ref_castle_feeb106dfcfd",
+      "name": "カタツムリ",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_1a3b42fc4951",
+      "name": "銀雲雀",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_ad61b2c240ef",
+      "name": "カニ缶囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_4c1e9565b073",
+      "name": "空中楼閣",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_80a14fa38e6a",
+      "name": "あずまや囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_dcd69fbf0565",
+      "name": "チョコレート囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_486097a202f5",
+      "name": "丸山の成香冠",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_8db59c689949",
+      "name": "康光の仁王立ち",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_8d3d0ddd0c31",
+      "name": "無敵囲い",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_dbe79223bfbd",
+      "name": "居玉",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_5fa350d5e2d1",
+      "name": "金象眼",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_a8bf03a78301",
+      "name": "銀象眼",
+      "kind": "castle",
+      "sources": [
+        "https://rocky-and-hopper.sakura.ne.jp/Kisho-Michelin/8399/978-4-8399-7450-3.htm"
+      ],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_1486fd16cf42",
+      "name": "矢倉戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["矢倉戦"],
+      "family": "矢倉系"
+    },
+    {
+      "id": "ref_opening_e653dc6bacc4",
+      "name": "矢倉加藤流",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_8d2c82994a48",
+      "name": "矢倉４六銀・３七桂型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["4六銀・3七桂型"],
+      "family": "矢倉系",
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_b81c317b4c71",
+      "name": "脇システム",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_59d740f22ce2",
+      "name": "矢倉棒銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_ebd2bc2063a6",
+      "name": "森下システム",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_12ee4d93e81a",
+      "name": "矢倉早囲い",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_f7d6617c811e",
+      "name": "雀刺し",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_d0e5a009c7b2",
+      "name": "四手角",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_91264f4cfd4d",
+      "name": "三手角",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_45bfbecd3bc9",
+      "name": "土居矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_35baf15347b5",
+      "name": "米長流急戦矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_dbde64cdb35c",
+      "name": "阿久津流急戦矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_37a2335692a1",
+      "name": "矢倉中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_d1ae8d3c34ab",
+      "name": "腰掛け銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "銀の活用",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_184785784859",
+      "name": "原始棒銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "銀の活用",
+      "aliases": [],
+      "parentId": "bogin"
+    },
+    {
+      "id": "ref_opening_5da6d9e5379b",
+      "name": "カニカニ銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "銀の活用",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_7352c1026000",
+      "name": "▲3五歩早仕掛け",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_9ae3a6f12cf3",
+      "name": "雁木戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["雁木"],
+      "family": "その他の戦法"
+    },
+    {
+      "id": "ref_opening_cb01bfb0ff7c",
+      "name": "陽動振り飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_3477f949147a",
+      "name": "無理矢理矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_dc2447ee563d",
+      "name": "早繰り銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "銀の活用",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_be3fccb89f38",
+      "name": "筋違い角",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_fef9e2c7d619",
+      "name": "後手一手損角換わり",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["一手損角換わり"],
+      "family": "角換わり系",
+      "parentId": "kakugawari"
+    },
+    {
+      "id": "ref_opening_a342a68058fb",
+      "name": "塚田スペシャル",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_d14ac293228b",
+      "name": "飛車先交換早繰り銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_f8059d4ddf33",
+      "name": "中原流相掛かり",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_71a10d62ba45",
+      "name": "飛車先交換腰掛け銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_6c26d786f969",
+      "name": "鎖鎌銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_74b9ea853357",
+      "name": "縦歩取り",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_a4e119b06129",
+      "name": "横歩取り△3三角",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["３三角型空中戦法"],
+      "family": "横歩取り系",
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_33e77cf2f85b",
+      "name": "横歩取り中原流",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "横歩取り系",
+      "aliases": [],
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_8b2616be3c2a",
+      "name": "中座飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["８五飛車"],
+      "family": "横歩取り系",
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_06855bfdd2a8",
+      "name": "横歩取り△3三桂",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["３三桂戦法"],
+      "family": "横歩取り系",
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_db533be5c6ca",
+      "name": "横歩取り△2三歩",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["２三歩戦法"],
+      "family": "横歩取り系",
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_92f3dbc6c4eb",
+      "name": "横歩取り△4五角",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["４五角戦法"],
+      "family": "横歩取り系",
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_ab0bce09f031",
+      "name": "相横歩取り",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "横歩取り系",
+      "aliases": [],
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_be13b2c23fe1",
+      "name": "二枚銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_c4da909aa4bf",
+      "name": "4六金戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_23cafd60c2f1",
+      "name": "鳥刺し",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_4b29f3a83ff1",
+      "name": "斜め棒銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "銀の活用",
+      "aliases": [],
+      "parentId": "bogin"
+    },
+    {
+      "id": "ref_opening_9b506f12b3b9",
+      "name": "英春流",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_bb5ad2b9304c",
+      "name": "地下鉄飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_04814e2c1286",
+      "name": "引き角",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_fef534b89116",
+      "name": "▲5八金右超急戦",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["超急戦"],
+      "family": "対振り飛車・その他"
+    },
+    {
+      "id": "ref_opening_4221499406c9",
+      "name": "超速▲3七銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["超速"],
+      "family": "その他の戦法"
+    },
+    {
+      "id": "ref_opening_18777d8254a6",
+      "name": "丸山ワクチン",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_c27d81349437",
+      "name": "左銀急戦",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_7c17f6c2445f",
+      "name": "４六銀左急戦",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["4六銀左戦法"],
+      "family": "対振り飛車・その他"
+    },
+    {
+      "id": "ref_opening_34e91a69e009",
+      "name": "山田定跡",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_5b17849c1de1",
+      "name": "4五歩早仕掛け",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["４五歩早仕掛け"],
+      "family": "その他の戦法"
+    },
+    {
+      "id": "ref_opening_d1c2dc0af305",
+      "name": "鷺宮定跡",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_d42d9f83feba",
+      "name": "ポンポン桂",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_f512b85e5310",
+      "name": "４六銀右急戦",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["4六銀右戦法"],
+      "family": "対振り飛車・その他"
+    },
+    {
+      "id": "ref_opening_849c42b5a423",
+      "name": "玉頭銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ac839aad01f3",
+      "name": "5七金戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["５七金戦法"],
+      "family": "その他の戦法"
+    },
+    {
+      "id": "ref_opening_094b38178e0f",
+      "name": "三歩突き捨て急戦",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_b8e9cabc78f8",
+      "name": "棒金",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_b42a223a7e65",
+      "name": "きmきm金",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["キmキm金"],
+      "family": "その他の戦法"
+    },
+    {
+      "id": "ref_opening_a04fe1dd2f3e",
+      "name": "居飛車穴熊戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_468fddd5f3b9",
+      "name": "左美濃戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_e5eb459150bc",
+      "name": "串カツ戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_2c6fe4ec1f13",
+      "name": "玉頭位取り",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["玉頭位取り戦法"],
+      "family": "対振り飛車・その他"
+    },
+    {
+      "id": "ref_opening_9e5933f4e7dc",
+      "name": "5筋位取り",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["５筋位取り"],
+      "family": "対振り飛車・その他"
+    },
+    {
+      "id": "ref_opening_7bf2313000bc",
+      "name": "ミレニアム戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_54f79255a1e4",
+      "name": "糸谷流右玉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_3d90e76852fe",
+      "name": "風車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_34d7c37c5cd5",
+      "name": "英ちゃん流中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_ba04b7b9729f",
+      "name": "原始中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_0f7310b8d47d",
+      "name": "先手中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_d8ef027629ea",
+      "name": "5五龍中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_99266bac7f2c",
+      "name": "角交換型中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_3754aed99bc6",
+      "name": "角交換型ツノ銀中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_de944e62aaaf",
+      "name": "5筋位取り中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_7cb4bb9899e2",
+      "name": "矢倉流中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_2ffae51ee3df",
+      "name": "平目",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_1cdf70f357de",
+      "name": "耀龍四間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_fd3fd9cea8a1",
+      "name": "錆刀戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_84d8ec54c8bd",
+      "name": "4五歩（6五歩）ポン",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_4253ea168a0d",
+      "name": "藤井システム",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_f7536d2d1105",
+      "name": "レグスペ",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_cc8d61b06836",
+      "name": "立石流四間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["立石流"],
+      "family": "四間飛車系",
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_cc94713984bd",
+      "name": "石田流",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_f7d2b05d3720",
+      "name": "中田功XP",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_595b007e7887",
+      "name": "下町流三間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_80b633536081",
+      "name": "トマホーク",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_8016bfff1bf5",
+      "name": "カナケンシステム",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_272bce381c8d",
+      "name": "久保システム",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_ccce8f983fcd",
+      "name": "初手▲７八飛",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["初手▲7八飛", "初手▲7八飛（猫だまし戦法）", "７八飛戦法"],
+      "family": "三間飛車系",
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_0c4855512773",
+      "name": "２手目△３二飛",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["2手目△3二飛", "３二飛戦法"],
+      "family": "三間飛車系",
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_3f9d786fcfdf",
+      "name": "鬼殺し",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_e1451f7d7e1e",
+      "name": "▲7八金（△3二金）型向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_63b417040b8a",
+      "name": "メリケン向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_185e4b0a4c3f",
+      "name": "二手損向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_cb6ccded6abd",
+      "name": "ダイレクト向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_b7e9d100a0bb",
+      "name": "阪田流向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["阪田流向飛車"],
+      "family": "向かい飛車系",
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_e5064afb0a14",
+      "name": "筋違い角向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_00db0fd15ec7",
+      "name": "升田流向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_ea0e2f77d9d0",
+      "name": "大野流向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_8a3d08c53f3d",
+      "name": "4手目△3三角戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_cbad902366bc",
+      "name": "中飛車左穴熊",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_badec0db3c18",
+      "name": "4四歩パックマン",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_164c61b35e08",
+      "name": "アヒル戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_e6986944ef6f",
+      "name": "相矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_6730df7535ee",
+      "name": "急戦矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_4636cf9e81a0",
+      "name": "田丸流急戦矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_f3e97e38eb83",
+      "name": "中原流急戦矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_b6ae4b669c99",
+      "name": "郷田流急戦矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_65bda31b3d50",
+      "name": "渡辺流急戦矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_876ee2cbc843",
+      "name": "後手６二飛戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_175374613f9b",
+      "name": "相腰掛け銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_be7d2413b9d0",
+      "name": "相掛かり棒銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_698e850dc266",
+      "name": "相掛かり早繰り銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_cd11c78b384f",
+      "name": "相掛かり腰掛け銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_7a142ea17c7e",
+      "name": "中原飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_8036036aef90",
+      "name": "横歩取り３三飛成戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "横歩取り系",
+      "aliases": [],
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_c6e558d47b31",
+      "name": "加藤流袖飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_3f7ef9f46c47",
+      "name": "二枚銀３八飛型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_9b9408a781a5",
+      "name": "英春流右四間",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_f3b6d31d5dbf",
+      "name": "二枚銀準急戦",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ff80bf4528e9",
+      "name": "対三間飛車７五歩早仕掛け",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_9f25d69a7971",
+      "name": "ポンポン桂左銀型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_86e6a134177d",
+      "name": "ポンポン桂右銀型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_50949c1e5d60",
+      "name": "居飛車穴熊引き角型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_7c2a370737ef",
+      "name": "居飛車穴熊居角型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_43e3c82456af",
+      "name": "居飛車穴熊角交換型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_50f5fa16d3f4",
+      "name": "左美濃引き角型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_e76e0fee7606",
+      "name": "左美濃居角型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_311902540bad",
+      "name": "左美濃角交換型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_5b186df4caa6",
+      "name": "６筋位取り戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_0d65be4b370b",
+      "name": "中飛車５筋歩交換型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_100bd027c254",
+      "name": "中飛車早繰り銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_c5f97a6eb535",
+      "name": "四間飛車腰掛け銀型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_1c4a0c3e5fdc",
+      "name": "四間飛車５六歩型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_b684fed15e45",
+      "name": "四間飛車５八金型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_2d82ed7de0e0",
+      "name": "四間飛車７八金型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_985863772785",
+      "name": "四間飛車６筋位取り型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_596dc1681740",
+      "name": "筋違い角阪田流四間飛車型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_d96d36e872fc",
+      "name": "三間飛車腰掛け銀型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_05e65c43cc10",
+      "name": "三間飛車５六歩型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_e8db5b7a23bc",
+      "name": "三間飛車７筋位取り型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_211989b75ba8",
+      "name": "大野流三間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_cc78a6a08364",
+      "name": "真部流三間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "aliases": ["真部流"],
+      "family": "三間飛車系",
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_9280ccc12443",
+      "name": "三間飛車藤井システム",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_83ed8790bb71",
+      "name": "６七金型三間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_2712e3faaa4b",
+      "name": "菅井流３三金型三間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_2f0fd61532e7",
+      "name": "菅井流５六歩型三間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_6b37282a87bc",
+      "name": "５八金型向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_7044b654edad",
+      "name": "７八金型向かい飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_cca15922f807",
+      "name": "角交換向かい飛車腰掛け銀型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_38b672268eb6",
+      "name": "角交換向かい飛車玉頭銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_6188b7c848c4",
+      "name": "筋違い角阪田流",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_818948b4ea48",
+      "name": "里見流流れ金無双",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_de532b4f44ff",
+      "name": "プラチナ美濃",
+      "kind": "castle",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "美濃系",
+      "aliases": [],
+      "parentId": "mino"
+    },
+    {
+      "id": "ref_castle_35ac3f17b21f",
+      "name": "右矢倉",
+      "kind": "castle",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "yagura"
+    },
+    {
+      "id": "ref_opening_1a30aaec818d",
+      "name": "飯島流相掛かり引き角",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_e0eeaa3d2c97",
+      "name": "UFO銀",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "相掛かり系",
+      "aliases": [],
+      "parentId": "aigakari"
+    },
+    {
+      "id": "ref_opening_70f4f9640bf2",
+      "name": "青野流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "横歩取り系",
+      "aliases": [],
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_11f6a28a3eab",
+      "name": "勇気流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "横歩取り系",
+      "aliases": [],
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_e5331271c88c",
+      "name": "竹部スペシャル",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "横歩取り系",
+      "aliases": [],
+      "parentId": "yokofudori"
+    },
+    {
+      "id": "ref_opening_6b51a11853fa",
+      "name": "角換わり棒銀",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "角換わり系",
+      "aliases": [],
+      "parentId": "kakugawari"
+    },
+    {
+      "id": "ref_opening_8f3b18f7618e",
+      "name": "木村定跡",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "角換わり系",
+      "aliases": [],
+      "parentId": "kakugawari"
+    },
+    {
+      "id": "ref_opening_c6fa6cf13b43",
+      "name": "矢倉３七銀戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "aliases": ["３七銀戦法"],
+      "family": "矢倉系",
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_73eff2a192ff",
+      "name": "ウソ矢倉",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "矢倉系",
+      "aliases": [],
+      "parentId": "ref_opening_1486fd16cf42"
+    },
+    {
+      "id": "ref_opening_2dbe21d7312d",
+      "name": "左美濃急戦",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_c2167ab408f1",
+      "name": "居角左美濃急戦",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_72b9df861ce1",
+      "name": "新型雁木",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_e9ba7701e5f0",
+      "name": "ツノ銀雁木",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_080afaade0a7",
+      "name": "飯島流引き角戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_de375b71f134",
+      "name": "エルモ急戦",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_a1697e44d026",
+      "name": "へなちょこ急戦",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_0d6abf4e4806",
+      "name": "７二飛亜急戦",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_44df720ce0a0",
+      "name": "右四間飛車急戦",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "居飛車の攻め",
+      "aliases": [],
+      "parentId": "migishikenbisha"
+    },
+    {
+      "id": "ref_opening_f32ef4f4bff7",
+      "name": "右四間飛車左美濃",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "居飛車の攻め",
+      "aliases": [],
+      "parentId": "migishikenbisha"
+    },
+    {
+      "id": "ref_opening_96bac9c3f48f",
+      "name": "羽生式袖飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_c6ff7a44fedb",
+      "name": "新米長玉",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_6544be85377d",
+      "name": "角道オープン四間飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_f3c689f5b5d1",
+      "name": "新石田流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_2e5d9b7c9bef",
+      "name": "升田式石田流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_2f9c552b9f22",
+      "name": "楠本式石田流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_89b6dfffaeff",
+      "name": "無理やり早石田",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "aliases": ["ムリヤリ早石田"],
+      "family": "三間飛車系",
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_4e020cba8a32",
+      "name": "菅井流三間飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_a80b3b63afe5",
+      "name": "菅井流ゴキゲン三間飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_opening_a6bba7d175b6",
+      "name": "遠山流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "中飛車系",
+      "aliases": [],
+      "parentId": "nakabisha"
+    },
+    {
+      "id": "ref_opening_716ea39e1226",
+      "name": "鬼殺し向かい飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_149b61b3ef75",
+      "name": "天彦流向かい飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_3cd5e2e78611",
+      "name": "菜々河流向かい飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "向かい飛車系",
+      "aliases": [],
+      "parentId": "mukaibisha"
+    },
+    {
+      "id": "ref_opening_85f7aac03517",
+      "name": "天彦流▲６六角",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ed3f64ec03c2",
+      "name": "菜々河流△４四角",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_0135eb1fb3ee",
+      "name": "相振り飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_660a6e64e44b",
+      "name": "角交換振り飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_771240a3b1bd",
+      "name": "工藤流陽動振り飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_fa16cd15bc92",
+      "name": "振り飛車ミレニアム",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "対振り飛車・その他",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_a5d640b3f141",
+      "name": "一間飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_680f6299b374",
+      "name": "一間飛車穴熊",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_fe17935e5fbd",
+      "name": "九間飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_b3c1efade31e",
+      "name": "角換わり右玉",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "角換わり系",
+      "aliases": [],
+      "parentId": "kakugawari"
+    },
+    {
+      "id": "ref_opening_ac78a4281c4f",
+      "name": "右玉",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_4f4dde69c18a",
+      "name": "こいなぎ流右玉",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_67e797bd3f35",
+      "name": "セカステ右玉",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_48b921a4f50d",
+      "name": "高田流左玉",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ee90591117fb",
+      "name": "新嬉野流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_b09695c1e989",
+      "name": "新鬼殺し",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_8b246dc8cf55",
+      "name": "かまいたち戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_d1ff029e78b5",
+      "name": "つくつくぼうし戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ad286ea3e954",
+      "name": "角頭歩戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_0bc7a3b03c06",
+      "name": "稲庭戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_4342cc6df92e",
+      "name": "目くらまし戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_7c6e51b47819",
+      "name": "カニカニ金",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ce48d9b62781",
+      "name": "Uターン飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_a52f51a480e5",
+      "name": "金沢流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ca56ac085081",
+      "name": "都成流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_20a68d048737",
+      "name": "パックマン戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_02568de5055c",
+      "name": "カメレオン戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "奇襲・独自戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_3e4bd96fae60",
+      "name": "忍者銀",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "銀の活用",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_bf9179e6c796",
+      "name": "xaby角",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_749c41c00634",
+      "name": "カリスマウィルス",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_44e75b04f0cb",
+      "name": "ドラゴンスペシャル",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_2dfac8f6163f",
+      "name": "腰掛け金",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_06f329152b88",
+      "name": "はく式四間飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_2fe0510e1f5f",
+      "name": "魔界四間飛車",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_75f581621c20",
+      "name": "４→３戦法",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "四間飛車系",
+      "aliases": [],
+      "parentId": "shikenbisha"
+    },
+    {
+      "id": "ref_opening_942cfc290088",
+      "name": "暴銀",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_dd896a1ba671",
+      "name": "メイドシステム",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_dfbf5e38a585",
+      "name": "ゴリゴリ金",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_44b7f9668dca",
+      "name": "相筋違い角",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_bd9fe8177f67",
+      "name": "阪田流２手目△９四歩",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_5b5951c1b303",
+      "name": "５手爆弾",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_234b30656acb",
+      "name": "間宮久夢流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_a2ca848da1a6",
+      "name": "やばボーズ流",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_f93bb4eabeff",
+      "name": "GAVA角",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_345427e98bf8",
+      "name": "ショーダンシステム",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_a247c2eccb5c",
+      "name": "ハチワンシステム",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_fed68f6f2327",
+      "name": "村田システム",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_eb17d070ea65",
+      "name": "アユムスペシャル",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "その他の戦法",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_ab61e942f1e5",
+      "name": "カナケンスペシャル",
+      "kind": "opening",
+      "sources": ["https://note.com/rekka_whitestone/n/nfdc2ce12c932"],
+      "recognition": null,
+      "family": "三間飛車系",
+      "aliases": [],
+      "parentId": "sankenbisha"
+    },
+    {
+      "id": "ref_castle_798c0d6ad338",
+      "name": "米長玉",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_422489b6fc56",
+      "name": "多伝囲い",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_a9bb8ef3733c",
+      "name": "金開き",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_7560c13ae319",
+      "name": "ポナンザ囲い",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_a4eb64ee1803",
+      "name": "壁囲い",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_de5ec68cf7ca",
+      "name": "風車",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "その他の囲い",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_bd2eb7e923ff",
+      "name": "左玉",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "右玉・左玉",
+      "aliases": []
+    },
+    {
+      "id": "ref_castle_b2081153db24",
+      "name": "中飛車左穴熊",
+      "kind": "castle",
+      "sources": ["https://ja.wikipedia.org/wiki/囲い"],
+      "recognition": null,
+      "family": "穴熊系",
+      "aliases": [],
+      "parentId": "anaguma"
+    },
+    {
+      "id": "ref_opening_ef71c58dcb8a",
+      "name": "下手棒銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_e1f199b7aced",
+      "name": "灘定跡",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_16a06854eeae",
+      "name": "下手９筋攻め",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_12a4caf72e5d",
+      "name": "下手１筋突破",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_f1deafbe16ae",
+      "name": "二歩突っ切り定跡",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_59a85fd2917b",
+      "name": "銀多伝",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_7551598ea653",
+      "name": "金多伝",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_eb30a5c95934",
+      "name": "上手５筋位取り",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_44dd27df86ff",
+      "name": "上手８四歩型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_6d1db07b9d70",
+      "name": "上手７四歩型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_097268903159",
+      "name": "上手７五歩交換型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_7f3f8c7973f2",
+      "name": "２五桂ハネ定跡",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_efb70b3198df",
+      "name": "下手腰掛け銀",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_06a74eccb270",
+      "name": "上手三金止早仕掛",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_d0dd73feb968",
+      "name": "下手右四間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "居飛車の攻め",
+      "aliases": [],
+      "parentId": "migishikenbisha"
+    },
+    {
+      "id": "ref_opening_5272a76f3a5a",
+      "name": "上手雁木",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_6bd03520da59",
+      "name": "上手お神酒指し",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_cef2ca7399f0",
+      "name": "金開き３四銀型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_4bddf48e2f97",
+      "name": "上手３手目５四歩戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_408ee981d918",
+      "name": "下手矢倉",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_0040082048f0",
+      "name": "下手三間飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_d668f77f64a8",
+      "name": "下手角交換型中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_2083d07c72fe",
+      "name": "下手中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_b7bc385f8d71",
+      "name": "上手６四金戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_4bc78f643c51",
+      "name": "上手５四銀６二飛型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_216a62380429",
+      "name": "上手三間飛車３四歩型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_1624642b7459",
+      "name": "上手角交換型中飛車",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_0872a70d5c8d",
+      "name": "上手１二飛型",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    },
+    {
+      "id": "ref_opening_999496ecf96c",
+      "name": "下手１八飛戦法",
+      "kind": "opening",
+      "sources": ["https://ja.wikipedia.org/wiki/将棋の戦法"],
+      "recognition": null,
+      "family": "駒落ち",
+      "aliases": []
+    }
+  ]
+}

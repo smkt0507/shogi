@@ -352,3 +352,268 @@ body {
   width: 24px;
   height: 24px;
 }
+
+/* Gold ink and a single brush-like sweep, kept inside the board. */
+.formation-cutin {
+  --formation-gold: #f3d99a;
+  container-type: inline-size;
+  position: absolute;
+  z-index: 30;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  animation: formation-visibility 1700ms both;
+}
+
+.formation-cutin.is-rival {
+  --formation-gold: #b8d9ee;
+}
+
+.formation-cutin-banner {
+  position: relative;
+  width: 100%;
+  padding: 24px 12px 26px;
+  border-block: 1px solid color-mix(in srgb, var(--formation-gold) 60%, transparent);
+  background:
+    radial-gradient(ellipse at 50% 50%, #3d2d17c9, transparent 75%),
+    linear-gradient(100deg, #09090bf0, #181612f5 50%, #09090bf0);
+  box-shadow: 0 12px 40px #0008;
+  color: var(--formation-gold);
+  text-align: center;
+  animation: formation-sweep 1700ms cubic-bezier(.2, .75, .2, 1) both;
+}
+
+.formation-cutin-eyebrow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: .15em;
+}
+
+.formation-cutin-eyebrow span {
+  opacity: .4;
+}
+
+.formation-cutin-reading {
+  margin-top: 17px;
+  font-size: 10px;
+  letter-spacing: .4em;
+  opacity: .65;
+}
+
+.formation-cutin-name {
+  margin-top: 4px;
+  font-family: var(--font-shogi), "Yu Mincho", serif;
+  font-size: clamp(18px, calc(82cqi / var(--formation-name-length)), 60px);
+  font-weight: 700;
+  letter-spacing: .14em;
+  line-height: 1.5;
+  text-shadow: 0 0 28px #e6b76760, 2px 3px 0 #0008;
+}
+
+.formation-cutin-tagline {
+  margin-top: 9px;
+  font-family: var(--font-shogi), "Yu Mincho", serif;
+  font-size: 12px;
+  letter-spacing: .15em;
+  color: #eee4d3;
+}
+
+.formation-cutin-seal {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 30px;
+  border: 1px solid #b76454;
+  color: #dd8a76;
+  font-family: var(--font-shogi), serif;
+  font-size: 16px;
+  transform: rotate(6deg);
+}
+
+.formation-cutin-rule {
+  display: block;
+  width: 45%;
+  height: 1px;
+  margin: 18px auto 0;
+  background: linear-gradient(90deg, transparent, var(--formation-gold), transparent);
+}
+
+.shogi-cell.is-formation::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 1px;
+  border: 2px solid #fff0ad;
+  box-shadow: inset 0 0 12px #facc1560, 0 0 12px #fbbf2480;
+  pointer-events: none;
+  animation: formation-glow 850ms ease-in-out 2;
+}
+
+@keyframes formation-visibility {
+  0%, 100% { opacity: 0; }
+  12%, 82% { opacity: 1; }
+}
+
+@keyframes formation-sweep {
+  0% { transform: translateX(-12%) scaleX(.9); clip-path: inset(0 100% 0 0); }
+  20%, 82% { transform: translateX(0) scaleX(1); clip-path: inset(0 0 0 0); }
+  100% { transform: translateX(5%); clip-path: inset(0 0 0 0); }
+}
+
+@keyframes formation-glow {
+  0%, 100% { opacity: .4; }
+  50% { opacity: 1; }
+}
+
+.collection-entry {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #d6b46d30;
+  border-radius: 16px;
+  background: linear-gradient(110deg, #31261650, #18181b);
+}
+
+.collection-entry:hover {
+  border-color: #d6b46d80;
+}
+
+.collection-entry-seal {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 44px;
+  border: 1px solid #d6b46d60;
+  border-radius: 3px;
+  color: #f3d99a;
+  font-family: var(--font-shogi), serif;
+  font-size: 23px;
+}
+
+.collection-header {
+  margin-top: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #d6b46d25;
+}
+
+.collection-header h1,
+.collection-card h3 {
+  font-family: var(--font-shogi), "Yu Mincho", serif;
+}
+
+.collection-progress {
+  height: 3px;
+  margin-top: 16px;
+  overflow: hidden;
+  background: #27272a;
+}
+
+.collection-progress > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #a48340, #f3d99a);
+  transition: width .4s ease;
+}
+
+.collection-card {
+  padding: 20px;
+  border: 1px solid #ffffff10;
+  border-radius: 16px;
+  background: #151517;
+}
+
+.collection-card.is-unlocked {
+  border-color: #d6b46d55;
+  background: radial-gradient(ellipse at top right, #6f501b25, transparent 65%), #151517;
+}
+
+.collection-card.is-unlocked h3 {
+  color: #f3d99a;
+}
+
+.collection-badge {
+  padding: 4px 8px;
+  border: 1px solid #3f3f46;
+  border-radius: 4px;
+  color: #a1a1aa;
+  font-size: 10px;
+}
+
+.collection-badge.is-unlocked {
+  border-color: #d6b46d55;
+  background: #d6b46d10;
+  color: #f3d99a;
+}
+
+.formation-diagram {
+  width: min(100%, 180px);
+  margin: 20px auto;
+}
+
+.formation-diagram-files,
+.formation-diagram-grid {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.formation-diagram-files {
+  margin-bottom: 4px;
+  color: #71717a;
+  font-size: 9px;
+  text-align: center;
+}
+
+.formation-diagram-grid {
+  border-top: 1px solid #d6b46d30;
+  border-left: 1px solid #d6b46d30;
+  background: #d6b46d05;
+}
+
+.formation-diagram-grid > span {
+  position: relative;
+  display: grid;
+  aspect-ratio: 1;
+  place-items: center;
+  border-right: 1px solid #d6b46d30;
+  border-bottom: 1px solid #d6b46d30;
+  font-family: var(--font-shogi), serif;
+  font-size: 12px;
+}
+
+.formation-diagram-grid > [data-rank]::after {
+  content: attr(data-rank);
+  position: absolute;
+  right: -14px;
+  color: #71717a;
+  font-size: 9px;
+}
+
+.formation-diagram-grid > .has-piece {
+  background: #d6b46d20;
+  color: #f3d99a;
+}
+
+@media (max-width: 1023px) and (orientation: landscape) {
+  .formation-cutin-banner { padding-block: 12px; }
+  .formation-cutin-reading { margin-top: 8px; }
+  .formation-cutin-name { font-size: min(28px, calc(82cqi / var(--formation-name-length))); }
+  .formation-cutin-rule { margin-top: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .formation-cutin,
+  .formation-cutin-banner,
+  .shogi-cell.is-formation::before {
+    animation: none;
+  }
+  .collection-progress > span { transition: none; }
+}

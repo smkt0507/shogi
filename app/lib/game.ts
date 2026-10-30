@@ -1,6 +1,7 @@
 import type {
   Board,
   EvaluationEntry,
+  FormationEvent,
   GameOutcome,
   Hands,
   KifuEntry,
@@ -21,6 +22,7 @@ import {
 } from "./rules";
 import { localEvaluation } from "./analysis";
 import { positionKey } from "./position";
+import { detectFormations } from "./formations";
 
 export type GameState = {
   session: number;
@@ -34,6 +36,7 @@ export type GameState = {
   pendingPromotion: Move | null;
   lastMove: Move | null;
   history: KifuEntry[];
+  formations: FormationEvent[];
   evaluations: EvaluationEntry[];
   positionKeys: string[];
   checkStatus: Record<Owner, boolean>;
@@ -68,6 +71,7 @@ export const createGameState = (playerOwner: Owner, session = 0): GameState => {
     pendingPromotion: null,
     lastMove: null,
     history: [],
+    formations: [],
     outcome: null,
     evaluations: [localEvaluation(board, hands, 0)],
     checkStatus: { b: false, w: false },
@@ -105,6 +109,8 @@ const commitMove = (state: GameState, move: Move): GameState => {
   const history: KifuEntry[] = [
     ...state.history,
     {
+      from: move.from,
+      captured: state.board[move.to.r][move.to.c]?.type,
       owner,
       pieceType,
       promoted: !!movedPiece?.promoted,
@@ -134,6 +140,10 @@ const commitMove = (state: GameState, move: Move): GameState => {
     hands,
     turn,
     history,
+    formations: [
+      ...state.formations,
+      ...detectFormations(board, history, owner, state.formations),
+    ],
     positionKeys,
     checkStatus,
     outcome,

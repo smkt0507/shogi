@@ -8,11 +8,15 @@ type Props = {
   aiTimeMs: number;
   showHints: boolean;
   showEvaluationGraph: boolean;
+  showFormationEffects: boolean;
+  formationSound: boolean;
   onPlayerOwnerChange: (owner: "b" | "w") => void;
   onDepthChange: (value: number) => void;
   onTimeChange: (value: number) => void;
   onHintsChange: (enabled: boolean) => void;
   onEvaluationGraphChange: (enabled: boolean) => void;
+  onFormationEffectsChange: (enabled: boolean) => void;
+  onFormationSoundChange: (enabled: boolean) => void;
   onStart: () => void;
 };
 
@@ -22,11 +26,15 @@ export default function SettingsPanel({
   aiTimeMs,
   showHints,
   showEvaluationGraph,
+  showFormationEffects,
+  formationSound,
   onPlayerOwnerChange,
   onDepthChange,
   onTimeChange,
   onHintsChange,
   onEvaluationGraphChange,
+  onFormationEffectsChange,
+  onFormationSoundChange,
   onStart,
 }: Props) {
   return (
@@ -74,6 +82,39 @@ export default function SettingsPanel({
             ))}
           </select>
         </div>
+        <fieldset className="space-y-3 border-t border-zinc-800 pt-4">
+          <legend className="px-1 text-sm font-semibold">
+            戦法・囲いの演出
+          </legend>
+          <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-amber-300/20 bg-amber-950/10 p-3 hover:bg-amber-950/20">
+            <input
+              type="checkbox"
+              checked={showFormationEffects}
+              onChange={(event) =>
+                onFormationEffectsChange(event.target.checked)
+              }
+              className="mt-1 h-4 w-4 accent-amber-300"
+            />
+            <span>
+              <span className="block font-semibold text-amber-100">
+                戦法エフェクト
+              </span>
+              <span className="mt-1 block text-xs leading-relaxed text-zinc-400">
+                囲いや戦法が成立した瞬間にカットイン。自分で使ったものは図鑑に残ります。
+              </span>
+            </span>
+          </label>
+          <label className="flex cursor-pointer items-center gap-3 px-3 text-sm text-zinc-300">
+            <input
+              type="checkbox"
+              checked={formationSound}
+              disabled={!showFormationEffects}
+              onChange={(event) => onFormationSoundChange(event.target.checked)}
+              className="h-4 w-4 accent-amber-300 disabled:opacity-40"
+            />
+            効果音を鳴らす
+          </label>
+        </fieldset>
         <fieldset className="space-y-3 border-t border-zinc-800 pt-4">
           <legend className="px-1 text-sm font-semibold">学習モード</legend>
           <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-zinc-700 p-3 hover:bg-zinc-800/60">

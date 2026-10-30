@@ -1,5 +1,6 @@
 import type { EvaluationEntry, GameResult, GameSettings } from "./types";
 import { isOwner, isRecord } from "./validation";
+import { parseFormationRecords } from "./formations";
 
 export const SETTINGS_KEY = "shogi-settings";
 export const RESULT_KEY = "shogi-result";
@@ -18,6 +19,8 @@ export const defaultSettings: GameSettings = {
   aiTimeMs: 400,
   showHints: false,
   showEvaluationGraph: false,
+  showFormationEffects: true,
+  formationSound: false,
 };
 
 export const parseSettings = (saved: string | null): GameSettings | null => {
@@ -39,6 +42,8 @@ export const parseSettings = (saved: string | null): GameSettings | null => {
       ),
       showHints: parsed.showHints === true,
       showEvaluationGraph: parsed.showEvaluationGraph === true,
+      showFormationEffects: parsed.showFormationEffects !== false,
+      formationSound: parsed.formationSound === true,
     };
   } catch {
     return null;
@@ -85,6 +90,7 @@ export const parseResult = (saved: string | null): GameResult | null => {
         ? (parsed.reason as GameResult["reason"])
         : undefined,
       showEvaluationGraph: parsed.showEvaluationGraph === true,
+      formations: parseFormationRecords(parsed.formations),
     };
   } catch {
     return null;

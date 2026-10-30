@@ -2,6 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+import Link from "next/link";
+import FormationLog from "../components/FormationLog";
 import EvaluationGraph from "../components/EvaluationGraph";
 import {
   parseResult,
@@ -53,6 +55,20 @@ export default function ResultPage() {
         {result?.showEvaluationGraph && result.evaluations.length > 0 && (
           <EvaluationGraph entries={result.evaluations} />
         )}
+        {result && result.formations.length > 0 && (
+          <div className="w-full max-w-md">
+            <FormationLog
+              records={result.formations}
+              playerOwner={result.playerOwner}
+            />
+          </div>
+        )}
+        <Link
+          href="/collection"
+          className="text-sm text-amber-200 underline decoration-amber-300/30 underline-offset-4"
+        >
+          戦法・囲い図鑑を見る →
+        </Link>
         <div className="flex flex-col gap-3 sm:flex-row">
           <button
             onClick={handleRematch}

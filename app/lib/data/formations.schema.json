@@ -1,0 +1,281 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shogi formation catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "formations"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "const": 2
+    },
+    "formations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/formation"
+      }
+    }
+  },
+  "definitions": {
+    "piece": {
+      "enum": ["P", "L", "N", "S", "G", "B", "R", "K"]
+    },
+    "coordinate": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9
+    },
+    "placement": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": [
+        {
+          "$ref": "#/definitions/piece"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        }
+      ]
+    },
+    "original": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": [
+        {
+          "$ref": "#/definitions/piece"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        }
+      ]
+    },
+    "move": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 6,
+      "items": [
+        {
+          "$ref": "#/definitions/piece"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/coordinate"
+        },
+        {
+          "$ref": "#/definitions/piece"
+        }
+      ]
+    },
+    "history": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bishopExchange": {
+          "enum": ["any", "before-pawn-exchange"]
+        },
+        "staticRooks": {
+          "type": "boolean"
+        },
+        "bishopsPresent": {
+          "type": "boolean"
+        },
+        "pawnExchanges": {
+          "enum": ["both", "self"]
+        },
+        "moves": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/move"
+          }
+        },
+        "firstMove": {
+          "$ref": "#/definitions/move"
+        }
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pieces"],
+      "properties": {
+        "pieces": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/placement"
+          }
+        },
+        "opponentPieces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/placement"
+          }
+        },
+        "originals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/original"
+          }
+        },
+        "history": {
+          "$ref": "#/definitions/history"
+        }
+      }
+    },
+    "formation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "kind", "family", "sources", "recognition"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reading": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": ["castle", "opening"]
+        },
+        "tagline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "example": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/definitions/placement"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^https?://"
+          }
+        },
+        "supersedes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "recognition": {
+          "anyOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["mirror", "patterns"],
+              "properties": {
+                "mirror": {
+                  "type": "boolean"
+                },
+                "maxOwnMoves": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100
+                },
+                "patterns": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "$ref": "#/definitions/pattern"
+                  }
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "aliases": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "parentId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "recognition": {
+                "type": "object"
+              }
+            }
+          },
+          "then": {
+            "required": ["reading", "tagline", "description", "example"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "opening"
+              },
+              "recognition": {
+                "type": "object"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "recognition": {
+                "required": ["maxOwnMoves"]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

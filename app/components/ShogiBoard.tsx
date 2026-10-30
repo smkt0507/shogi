@@ -15,6 +15,7 @@ type Props = {
   lastMove: Move | null;
   playerOwner: Owner;
   hintMove?: Move | null;
+  formationSquares?: Move["to"][];
   onSquareClick: (r: number, c: number) => void;
 };
 
@@ -28,6 +29,7 @@ type SquareProps = {
   lastMove: boolean;
   hintFrom: boolean;
   hintTo: boolean;
+  formation: boolean;
   playerOwner: Owner;
   onClick: Props["onSquareClick"];
 };
@@ -44,6 +46,7 @@ const BoardSquare = memo(function BoardSquare(props: SquareProps) {
     lastMove,
     hintFrom,
     hintTo,
+    formation,
     playerOwner,
     onClick,
   } = props;
@@ -58,7 +61,7 @@ const BoardSquare = memo(function BoardSquare(props: SquareProps) {
       aria-label={`${squareText({ r, c })}${piece ? ` ${piece.owner === "b" ? "先手" : "後手"}の${label}` : " 空きマス"}${hintFrom ? " ヒントの移動元" : ""}${hintTo ? " ヒントの移動先" : ""}`}
       aria-pressed={selected}
       onClick={() => onClick(r, c)}
-      className={`shogi-cell flex items-center justify-center text-lg font-semibold ${selected ? "is-selected" : ""} ${capture ? "is-capture" : target ? "is-target" : ""} ${lastMove ? "is-last-move" : ""} ${hintFrom ? "is-hint-from" : ""}`}
+      className={`shogi-cell flex items-center justify-center text-lg font-semibold ${selected ? "is-selected" : ""} ${capture ? "is-capture" : target ? "is-target" : ""} ${lastMove ? "is-last-move" : ""} ${hintFrom ? "is-hint-from" : ""} ${formation ? "is-formation" : ""}`}
     >
       {piece && (
         <Image
@@ -84,6 +87,7 @@ export default memo(function ShogiBoard({
   lastMove,
   playerOwner,
   hintMove,
+  formationSquares,
   onSquareClick,
 }: Props) {
   return (
@@ -106,6 +110,11 @@ export default memo(function ShogiBoard({
                 lastMove={lastMove?.to.r === r && lastMove.to.c === c}
                 hintFrom={hintMove?.from?.r === r && hintMove.from.c === c}
                 hintTo={hintMove?.to.r === r && hintMove.to.c === c}
+                formation={
+                  formationSquares?.some(
+                    (square) => square.r === r && square.c === c,
+                  ) ?? false
+                }
               />
             );
           }),

@@ -20,6 +20,8 @@ export type GameSettings = {
   aiTimeMs: number;
   showHints: boolean;
   showEvaluationGraph: boolean;
+  showFormationEffects: boolean;
+  formationSound: boolean;
 };
 
 // All displayed scores use the same perspective: positive favors sente (b).
@@ -32,6 +34,8 @@ export type EvaluationEntry = PositionEvaluation & { ply: number };
 
 export type MoveQuality = "good" | "bad" | "neutral";
 export type KifuEntry = {
+  from?: Move["to"];
+  captured?: PieceType;
   owner: Owner;
   pieceType: PieceType;
   promoted: boolean;
@@ -54,4 +58,17 @@ export type GameResult = {
   reason?: GameOutcome["reason"];
   evaluations: EvaluationEntry[];
   showEvaluationGraph: boolean;
+  formations: FormationRecord[];
 };
+
+// IDs are defined in data/formations.json and validated against that catalog
+// when loading saved records. Adding an entry needs no second ID registry.
+export type FormationId = string;
+
+export type FormationRecord = {
+  id: FormationId;
+  owner: Owner;
+  ply: number;
+};
+
+export type FormationEvent = FormationRecord & { squares: Move["to"][] };

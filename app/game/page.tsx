@@ -11,12 +11,16 @@ import StatusPanel from "../components/StatusPanel";
 import HintPanel from "../components/HintPanel";
 import EvaluationGraph from "../components/EvaluationGraph";
 import MobileGameTools from "../components/MobileGameTools";
+import FormationCutIn from "../components/FormationCutIn";
+import FormationLog from "../components/FormationLog";
 import { parseSettings, SETTINGS_KEY, RESULT_KEY } from "../lib/settings";
 import { useLocalStorageValue } from "../lib/useLocalStorageValue";
 import { writeStoredValue } from "../lib/storage";
 import { opponentOf } from "../lib/rules";
 import { useGame } from "../lib/useGame";
 import { useDesktopLayout } from "../lib/useDesktopLayout";
+import { useFormations } from "../lib/useFormations";
+import { prepareFormationSound } from "../lib/formation-sound";
 import type { GameSettings } from "../lib/types";
 
 export default function GamePage() {
@@ -48,6 +52,11 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
     handleDropSelect,
     resetGame,
   } = useGame(settings);
+  const activeFormation = useFormations(
+    state.formations,
+    state.session,
+    settings,
+  );
   const {
     board,
     hands,
@@ -76,10 +85,22 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
         playerOwner,
         evaluations,
         showEvaluationGraph,
+        formations: state.formations.map(({ id, owner, ply }) => ({
+          id,
+          owner,
+          ply,
+        })),
       }),
     );
     router.push("/result");
-  }, [outcome, playerOwner, evaluations, showEvaluationGraph, router]);
+  }, [
+    outcome,
+    playerOwner,
+    evaluations,
+    showEvaluationGraph,
+    state.formations,
+    router,
+  ]);
   const handleBackToSettings = useCallback(
     () => router.push("/settings"),
     [router],
@@ -113,6 +134,9 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
       heightClassName={isDesktop ? "game-kifu-list" : ""}
     />
   );
+  const formationPanel = (
+    <FormationLog records={state.formations} playerOwner={playerOwner} />
+  );
   const searchError = aiSearch.error ? (
     <div
       role="alert"
@@ -129,7 +153,19 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
   ) : null;
 
   return (
-    <div className="game-screen bg-zinc-950 text-zinc-100">
+    <div
+      className="game-screen bg-zinc-950 text-zinc-100"
+      onPointerDown={
+        settings.formationSound && settings.showFormationEffects
+          ? prepareFormationSound
+          : undefined
+      }
+      onKeyDown={
+        settings.formationSound && settings.showFormationEffects
+          ? prepareFormationSound
+          : undefined
+      }
+    >
       <div className="game-layout">
         {!isDesktop && (
           <header className="game-mobile-status">
@@ -189,6 +225,7 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
               lastMove={lastMove}
               playerOwner={playerOwner}
               hintMove={hintMove}
+              formationSquares={activeFormation?.squares}
               onSquareClick={handleSquareClick}
             />
             {aiThinking && (
@@ -200,6 +237,13 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
                   </div>
                 </div>
               </div>
+            )}
+            {activeFormation && (
+              <FormationCutIn
+                key={`${state.session}-${activeFormation.owner}-${activeFormation.id}`}
+                event={activeFormation}
+                playerOwner={playerOwner}
+              />
             )}
           </div>
           <HandsPanel
@@ -216,6 +260,7 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
 
         {isDesktop && (
           <aside className="game-sidebar game-sidebar-right">
+            {formationPanel}
             {evaluationPanel}
             {kifuPanel}
           </aside>
@@ -226,6 +271,7 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
             evaluation={evaluationPanel}
             kifu={kifuPanel}
             status={statusPanel}
+            formations={formationPanel}
             onReset={resetGame}
             onBackToSettings={handleBackToSettings}
           />
