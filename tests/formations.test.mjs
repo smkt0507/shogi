@@ -3,6 +3,13 @@ import assert from "node:assert/strict";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { additionalSequences } from "./additional-formation-fixtures.mjs";
+import fs from "node:fs";
+const expandedFixtures = JSON.parse(
+  fs.readFileSync(
+    new URL("./expanded-formation-fixtures.json", import.meta.url),
+    "utf8",
+  ),
+);
 
 const require = createRequire(import.meta.url);
 const load = (name) => require(path.join(process.env.SHOGI_TEST_LIB_DIR, name));
@@ -43,6 +50,7 @@ const sequences = {
     [2, 8, 4, 8],
   ],
   bogin: [
+    [7, 7, 7, 6],
     [2, 7, 2, 6],
     [2, 6, 2, 5],
     [3, 9, 3, 8],
@@ -266,7 +274,7 @@ for (const owner of ["b", "w"]) {
 
 test("castles require every unpromoted guard and accept left/right mirrored shapes", () => {
   for (const formation of detectableFormations.filter(
-    (item) => item.kind === "castle",
+    (item) => item.kind === "castle" && sequences[item.id],
   )) {
     for (const owner of ["b", "w"]) {
       for (const mirror of formation.recognition.mirror
@@ -624,6 +632,7 @@ test("the catalog has an independent legal-move fixture for every formation", ()
   const covered = new Set([
     ...Object.keys(sequences),
     ...Object.keys(contextualSequences),
+    ...expandedFixtures.map((fixture) => fixture.id),
   ]);
   assert.deepEqual(
     detectableFormations

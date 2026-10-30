@@ -41,6 +41,8 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
   const { playerOwner, showHints, showEvaluationGraph } = settings;
   const router = useRouter();
   const isDesktop = useDesktopLayout();
+  const [leftInfo, setLeftInfo] = useState("status");
+  const [rightInfo, setRightInfo] = useState("kifu");
   const {
     state,
     dispatch,
@@ -124,7 +126,7 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
     />
   ) : null;
   const evaluationPanel = showEvaluationGraph ? (
-    <EvaluationGraph entries={evaluations} compact={isDesktop} />
+    <EvaluationGraph entries={evaluations} compact />
   ) : null;
   const kifuPanel = (
     <KifuPanel
@@ -196,9 +198,14 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
         )}
         {isDesktop && (
           <aside className="game-sidebar game-sidebar-left">
-            <div className="flex flex-col gap-3">
-              {statusPanel}
-              {hintPanel}
+            <div className="game-left-info">
+              {hintPanel && (
+                <nav className="screen-tabs" aria-label="対局ガイド">
+                  <button aria-pressed={leftInfo === "status"} onClick={() => setLeftInfo("status")}>状況</button>
+                  <button aria-pressed={leftInfo === "hint"} onClick={() => setLeftInfo("hint")}>ヒント</button>
+                </nav>
+              )}
+              {leftInfo === "hint" && hintPanel ? hintPanel : statusPanel}
             </div>
             {searchError}
             <ControlsPanel
@@ -260,9 +267,14 @@ function Game({ settings: initialSettings }: { settings: GameSettings }) {
 
         {isDesktop && (
           <aside className="game-sidebar game-sidebar-right">
-            {formationPanel}
-            {evaluationPanel}
-            {kifuPanel}
+            <nav className="screen-tabs" aria-label="対局記録の切り替え">
+              <button aria-pressed={rightInfo === "formations"} onClick={() => setRightInfo("formations")}>戦法</button>
+              {evaluationPanel && <button aria-pressed={rightInfo === "evaluation"} onClick={() => setRightInfo("evaluation")}>評価</button>}
+              <button aria-pressed={rightInfo === "kifu"} onClick={() => setRightInfo("kifu")}>棋譜</button>
+            </nav>
+            <div className="game-info-panel">
+              {rightInfo === "formations" ? formationPanel : rightInfo === "evaluation" && evaluationPanel ? evaluationPanel : kifuPanel}
+            </div>
           </aside>
         )}
         {!isDesktop && (

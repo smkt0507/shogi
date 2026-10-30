@@ -27,22 +27,26 @@ export default memo(function HandsPanel({
   disabled = false,
   compact = false,
 }: Props) {
+  const hasPieces = handOrder.some((type) => hands[owner][type] > 0);
   return (
     <div
+      role="group"
+      aria-label={title.endsWith("持ち駒") ? title : `${title}の持ち駒`}
       className={
         compact
-          ? "game-hands-panel rounded-xl bg-zinc-900 p-2"
+          ? "game-hands-panel rounded-xl bg-zinc-900"
           : "rounded-2xl bg-zinc-900 p-4"
       }
     >
-      <div className={`${compact ? "mb-1" : "mb-2"} text-xs text-zinc-400`}>
-        {title}
+      <div className={`${compact ? "compact-hands-title" : "mb-2"} text-xs text-zinc-400`} title={title}>
+        {compact ? selectable ? "あなた" : "AI" : title}
       </div>
       <div
         className={
-          compact ? "grid min-h-8 grid-cols-7 gap-1" : "flex flex-wrap gap-2"
+          compact ? "compact-hands-items" : "flex flex-wrap gap-2"
         }
       >
+        {compact && !hasPieces && <span className="compact-hands-empty">持ち駒なし</span>}
         {handOrder.map((type) => {
           const count = hands[owner][type];
           const isSelected = selectedDrop === type;
@@ -73,7 +77,7 @@ export default memo(function HandsPanel({
             return (
               <div
                 key={type}
-                className={`flex items-center rounded-full bg-zinc-800 py-1 text-sm ${compact ? "relative min-w-0 justify-center" : "gap-2 px-3"}`}
+                className={`flex items-center rounded-full bg-zinc-800 py-1 text-sm ${compact ? "compact-hand-piece relative min-w-0 justify-center" : "gap-2 px-3"}`}
               >
                 {contents}
               </div>
@@ -84,7 +88,7 @@ export default memo(function HandsPanel({
               aria-label={`${pieceLabel[type].base}を打つ（持ち駒${count}枚）`}
               aria-pressed={isSelected}
               onClick={() => onSelect?.(type)}
-              className={`flex items-center rounded-full py-1 text-sm transition ${compact ? "relative min-w-0 justify-center" : "gap-2 px-3"} ${
+              className={`flex items-center rounded-full py-1 text-sm transition ${compact ? "compact-hand-piece relative min-w-0 justify-center" : "gap-2 px-3"} ${
                 count > 0 && !disabled
                   ? isSelected
                     ? "bg-emerald-400 text-zinc-900"

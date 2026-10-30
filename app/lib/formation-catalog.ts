@@ -25,13 +25,22 @@ export type HistoryConditions = {
   bishopsPresent?: boolean;
   pawnExchanges?: "both" | "self";
   firstMove?: HistoricalMove;
+  opponentFirstMove?: HistoricalMove;
   moves?: readonly HistoricalMove[];
+  orderedMoves?: readonly HistoricalMove[];
+  opponentMoves?: readonly HistoricalMove[];
+  drops?: readonly Placement[];
+  rookFiles?: readonly number[];
+  opponentRookFiles?: readonly number[];
+  rangingRooks?: "self" | "opponent" | "both";
 };
 export type FormationPattern = {
   pieces: readonly Placement[];
   opponentPieces?: readonly Placement[];
   originals?: readonly OriginalPlacement[];
   history?: HistoryConditions;
+  emptySquares?: readonly (readonly [number, number])[];
+  requires?: readonly FormationId[];
 };
 export type Formation = {
   id: FormationId;
@@ -49,6 +58,8 @@ export type Formation = {
   recognition: {
     mirror: boolean;
     maxOwnMoves?: number;
+    minOwnMoves?: number;
+    owner?: "b" | "w";
     patterns: readonly FormationPattern[];
   } | null;
 };
@@ -216,10 +227,24 @@ export function parseFormationCatalog(value: unknown): readonly Formation[] {
     const rule = entry.recognition;
     object(
       rule,
-      ["mirror", "maxOwnMoves", "patterns"],
+      ["mirror", "maxOwnMoves", "minOwnMoves", "owner", "patterns"],
       `${entry.id}: recognition`,
     );
     requireValue(typeof rule.mirror === "boolean", `${entry.id}: mirror`);
+    if (rule.owner !== undefined)
+      requireValue(
+        rule.owner === "b" || rule.owner === "w",
+        `${entry.id}: owner`,
+      );
+    if (rule.minOwnMoves !== undefined)
+      requireValue(
+        Number.isInteger(rule.minOwnMoves) &&
+          Number(rule.minOwnMoves) >= 1 &&
+          Number(rule.minOwnMoves) <= 100 &&
+          (rule.maxOwnMoves === undefined ||
+            Number(rule.minOwnMoves) <= Number(rule.maxOwnMoves)),
+        `${entry.id}: minOwnMoves`,
+      );
     if (rule.maxOwnMoves !== undefined)
       requireValue(
         Number.isInteger(rule.maxOwnMoves) &&
@@ -238,7 +263,14 @@ export function parseFormationCatalog(value: unknown): readonly Formation[] {
     for (const pattern of rule.patterns) {
       object(
         pattern,
-        ["pieces", "opponentPieces", "originals", "history"],
+        [
+          "pieces",
+          "opponentPieces",
+          "originals",
+          "history",
+          "emptySquares",
+          "requires",
+        ],
         `${entry.id}: pattern`,
       );
       placements(pattern.pieces, `${entry.id}: pieces`);
@@ -248,6 +280,34 @@ export function parseFormationCatalog(value: unknown): readonly Formation[] {
       );
       if (pattern.opponentPieces !== undefined)
         placements(pattern.opponentPieces, `${entry.id}: opponentPieces`);
+      if (pattern.emptySquares !== undefined) {
+        requireValue(
+          Array.isArray(pattern.emptySquares),
+          `${entry.id}: emptySquares`,
+        );
+        placements(
+          (pattern.emptySquares as unknown[]).map((square) =>
+            Array.isArray(square) ? ["P", ...square] : square,
+          ),
+          `${entry.id}: emptySquares`,
+        );
+        for (const [file, rank] of pattern.emptySquares as [number, number][])
+          requireValue(
+            ![
+              ...(pattern.pieces as Placement[]),
+              ...((pattern.opponentPieces ?? []) as Placement[]),
+            ].some(([, f, r]) => f === file && r === rank),
+            `${entry.id}: occupied empty square`,
+          );
+      }
+      if (pattern.requires !== undefined)
+        requireValue(
+          Array.isArray(pattern.requires) &&
+            pattern.requires.length > 0 &&
+            pattern.requires.every((id) => typeof id === "string") &&
+            new Set(pattern.requires).size === pattern.requires.length,
+          `${entry.id}: requires`,
+        );
       if (pattern.originals !== undefined) {
         tuples(pattern.originals, 5, `${entry.id}: originals`);
         for (const [
@@ -276,6 +336,13 @@ export function parseFormationCatalog(value: unknown): readonly Formation[] {
             "pawnExchanges",
             "moves",
             "firstMove",
+            "opponentFirstMove",
+            "orderedMoves",
+            "opponentMoves",
+            "drops",
+            "rookFiles",
+            "opponentRookFiles",
+            "rangingRooks",
           ],
           `${entry.id}: history`,
         );
@@ -300,8 +367,52 @@ export function parseFormationCatalog(value: unknown): readonly Formation[] {
           );
         if (history.moves !== undefined)
           tuples(history.moves, 5, `${entry.id}: history moves`, true);
+        for (const key of ["orderedMoves", "opponentMoves"])
+          if (history[key] !== undefined) {
+            tuples(history[key], 5, `${entry.id}: ${key}`, true);
+            requireValue(
+              (history[key] as unknown[]).length > 0,
+              `${entry.id}: empty ${key}`,
+            );
+          }
+        if (history.drops !== undefined) {
+          placements(history.drops, `${entry.id}: drops`);
+          requireValue(
+            (history.drops as unknown[]).length > 0,
+            `${entry.id}: empty drops`,
+          );
+        }
+        for (const key of ["rookFiles", "opponentRookFiles"])
+          if (history[key] !== undefined)
+            requireValue(
+              Array.isArray(history[key]) &&
+                (history[key] as unknown[]).length > 0 &&
+                (history[key] as unknown[]).every(
+                  (file) =>
+                    Number.isInteger(file) &&
+                    Number(file) >= 1 &&
+                    Number(file) <= 9,
+                ) &&
+                new Set(history[key] as number[]).size ===
+                  (history[key] as unknown[]).length,
+              `${entry.id}: ${key}`,
+            );
+        if (history.rangingRooks !== undefined)
+          requireValue(
+            ["self", "opponent", "both"].includes(
+              history.rangingRooks as string,
+            ),
+            `${entry.id}: rangingRooks`,
+          );
         if (history.firstMove !== undefined)
           tuples([history.firstMove], 5, `${entry.id}: firstMove`, true);
+        if (history.opponentFirstMove !== undefined)
+          tuples(
+            [history.opponentFirstMove],
+            5,
+            `${entry.id}: opponentFirstMove`,
+            true,
+          );
       }
     }
   }
@@ -340,6 +451,24 @@ export function parseFormationCatalog(value: unknown): readonly Formation[] {
     visitParent(entry.parentId, new Set([...ancestors, id]));
   }
   for (const id of ids) visitParent(id, new Set());
+  function visitRequirements(id: string, ancestors: Set<string>) {
+    requireValue(!ancestors.has(id), `requires cycle at ${id}`);
+    const entry = byId.get(id);
+    requireValue(
+      entry?.recognition,
+      `requires unknown or inactive formation ${id}`,
+    );
+    for (const pattern of entry.recognition.patterns)
+      for (const required of pattern.requires ?? []) {
+        requireValue(
+          entry.kind !== "castle" || byId.get(required)?.kind === "castle",
+          `${id}: castle cannot depend on an opening move limit`,
+        );
+        visitRequirements(required, new Set([...ancestors, id]));
+      }
+  }
+  for (const entry of result)
+    if (entry.recognition) visitRequirements(entry.id, new Set());
   return result;
 }
 

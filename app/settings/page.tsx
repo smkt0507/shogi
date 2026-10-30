@@ -52,11 +52,11 @@ export default function SettingsPage() {
   const saved = useLocalStorageValue(SETTINGS_KEY);
 
   return (
-    <div className="min-h-screen bg-zinc-950 px-4 py-10 text-zinc-100">
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
-        <header className="flex flex-col gap-2">
-          <h1 className="text-3xl font-semibold tracking-tight">将棋AI対戦</h1>
-          <p className="text-sm text-zinc-300">
+    <div className="viewport-screen settings-screen bg-zinc-950 text-zinc-100">
+      <div className="settings-shell">
+        <header className="settings-page-header">
+          <h1 className="text-2xl font-semibold tracking-tight">将棋AI対戦</h1>
+          <p className="text-xs text-zinc-400">
             対局設定を行ってから「対局開始」を押してください。
           </p>
         </header>
@@ -65,7 +65,7 @@ export default function SettingsPage() {
             initialSettings={parseSettings(saved) ?? defaultSettings}
           />
         )}
-        <Link href="/collection" className="collection-entry">
+        <Link href="/collection" className="collection-entry settings-collection-link">
           <span className="collection-entry-seal" aria-hidden="true">
             録
           </span>

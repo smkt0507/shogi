@@ -55,7 +55,7 @@ export default memo(function EvaluationGraph({
 
   return (
     <section
-      className={`w-full shrink-0 rounded-2xl bg-zinc-900 text-sm text-zinc-200 ${compact ? "p-3" : "p-4"}`}
+      className={`evaluation-panel w-full rounded-2xl bg-zinc-900 text-sm text-zinc-200 ${compact ? "p-3" : "p-4"}`}
       aria-label="評価値グラフ"
     >
       <div className="flex items-center justify-between gap-2">
@@ -69,7 +69,7 @@ export default memo(function EvaluationGraph({
       )}
       <svg
         viewBox="0 0 600 226"
-        className="mt-2 w-full"
+        className="evaluation-plot"
         role="img"
         aria-labelledby={`${id}-title ${id}-description`}
       >

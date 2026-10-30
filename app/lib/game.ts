@@ -143,6 +143,7 @@ const commitMove = (state: GameState, move: Move): GameState => {
     formations: [
       ...state.formations,
       ...detectFormations(board, history, owner, state.formations),
+      ...detectFormations(board, history, turn, state.formations),
     ],
     positionKeys,
     checkStatus,

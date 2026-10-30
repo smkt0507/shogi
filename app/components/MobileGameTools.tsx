@@ -92,7 +92,7 @@ export default function MobileGameTools({
       label: "メニュー",
       title: "対局メニュー",
       content: (
-        <div className="space-y-3">
+        <div className="game-menu-content space-y-3">
           {status}
           <ControlsPanel
             onReset={() => {

@@ -10,7 +10,12 @@ import type {
 } from "./types";
 import { isOwner, isRecord } from "./validation";
 import { formations, detectableFormations } from "./formation-catalog";
-import type { HistoryConditions, Placement } from "./formation-catalog";
+import type {
+  Formation,
+  HistoricalMove,
+  HistoryConditions,
+  Placement,
+} from "./formation-catalog";
 export {
   formations,
   detectableFormations,
@@ -19,8 +24,8 @@ export {
 export type { Formation } from "./formation-catalog";
 
 export const FORMATIONS_KEY = "shogi-formations";
-export const formationById = (id: FormationId) =>
-  formations.find((item) => item.id === id)!;
+const byId = new Map(formations.map((formation) => [formation.id, formation]));
+export const formationById = (id: FormationId) => byId.get(id)!;
 const isFormationId = (id: unknown): id is FormationId =>
   detectableFormations.some((item) => item.id === id);
 
@@ -154,12 +159,19 @@ function pawnExchangeIndex(history: KifuEntry[], owner: Owner) {
 
 function historyMatcher(board: Board, history: KifuEntry[], owner: Owner) {
   const cache = new Map<string, boolean>();
+  const positions = new Map<string, Move["to"] | null>();
+  const originalFor = (side: Owner, file: number, rank: number) => {
+    const key = `${side}:${file}:${rank}`;
+    if (!positions.has(key))
+      positions.set(key, originalPiece(history, side, file, rank));
+    return positions.get(key)!;
+  };
   const fact = (key: string, compute: () => boolean) => {
     if (!cache.has(key)) cache.set(key, compute());
     return cache.get(key)!;
   };
   const alive = (side: Owner, type: PieceType, file: number, rank: number) => {
-    const square = originalPiece(history, side, file, rank);
+    const square = originalFor(side, file, rank);
     const piece = square && board[square.r][square.c];
     return (
       !!piece && piece.owner === side && piece.type === type && !piece.promoted
@@ -181,8 +193,113 @@ function historyMatcher(board: Board, history: KifuEntry[], owner: Owner) {
     }
     return true;
   };
+  const rangingRook = (side: Owner) => {
+    if (!alive(side, "R", 2, 8)) return false;
+    let square = formationSquare(2, 8, side);
+    let ranged = false;
+    for (const entry of history) {
+      if (
+        entry.owner !== side ||
+        entry.isDrop ||
+        entry.pieceType !== "R" ||
+        !sameSquare(entry.from, square)
+      )
+        continue;
+      const fromRank = side === "b" ? square.r + 1 : 9 - square.r;
+      const toRank = side === "b" ? entry.to.r + 1 : 9 - entry.to.r;
+      const toFile = side === "b" ? 9 - entry.to.c : entry.to.c + 1;
+      // A rook moving sideways in the middle of the board or along the back
+      // rank (Subway Rook) is not evidence of a ranging-rook opening.
+      if (
+        fromRank === 8 &&
+        toRank === 8 &&
+        toFile >= 5 &&
+        square.c !== entry.to.c &&
+        !entry.captured
+      )
+        ranged = true;
+      square = entry.to;
+    }
+    return ranged;
+  };
   return (conditions: HistoryConditions | undefined, mirror: boolean) => {
     if (!conditions) return true;
+    const opponent = owner === "b" ? "w" : "b";
+    const moveMatches = (
+      entry: KifuEntry,
+      move: HistoricalMove,
+      side: Owner,
+    ) => {
+      const [type, ff, fr, tf, tr, captured] = move;
+      return (
+        entry.owner === side &&
+        !entry.isDrop &&
+        !entry.promoted &&
+        entry.pieceType === type &&
+        sameSquare(
+          entry.from,
+          formationSquare(mirror ? 10 - ff : ff, fr, side),
+        ) &&
+        sameSquare(
+          entry.to,
+          formationSquare(mirror ? 10 - tf : tf, tr, side),
+        ) &&
+        (captured === undefined || entry.captured === captured)
+      );
+    };
+    const rookOnFiles = (side: Owner, files: readonly number[] | undefined) => {
+      if (!files) return true;
+      const square = originalFor(side, 2, 8);
+      if (!square || !alive(side, "R", 2, 8)) return false;
+      const file = side === "b" ? 9 - square.c : square.c + 1;
+      return files.includes(mirror ? 10 - file : file);
+    };
+    if (
+      !rookOnFiles(owner, conditions.rookFiles) ||
+      !rookOnFiles(opponent, conditions.opponentRookFiles)
+    )
+      return false;
+    if (
+      conditions.rangingRooks &&
+      !fact(
+        `ranging:${conditions.rangingRooks}`,
+        () =>
+          (conditions.rangingRooks === "opponent" || rangingRook(owner)) &&
+          (conditions.rangingRooks === "self" || rangingRook(opponent)),
+      )
+    )
+      return false;
+    if (conditions.orderedMoves) {
+      let index = 0;
+      for (const entry of history)
+        if (
+          index < conditions.orderedMoves.length &&
+          moveMatches(entry, conditions.orderedMoves[index], owner)
+        )
+          index++;
+      if (index !== conditions.orderedMoves.length) return false;
+    }
+    if (
+      !(conditions.opponentMoves ?? []).every((move) =>
+        history.some((entry) => moveMatches(entry, move, opponent)),
+      )
+    )
+      return false;
+    if (
+      !(conditions.drops ?? []).every(([type, file, rank]) =>
+        history.some(
+          (entry) =>
+            entry.owner === owner &&
+            entry.isDrop &&
+            entry.pieceType === type &&
+            sameSquare(
+              entry.to,
+              formationSquare(mirror ? 10 - file : file, rank, owner),
+            ),
+        ),
+      )
+    )
+      return false;
     if (
       conditions.staticRooks &&
       !fact("staticRooks", () => staticRook("b") && staticRook("w"))
@@ -221,41 +338,16 @@ function historyMatcher(board: Board, history: KifuEntry[], owner: Owner) {
       })
     )
       return false;
-    if (conditions.firstMove) {
-      const [type, ff, fr, tf, tr, captured] = conditions.firstMove;
-      const first = history.find((entry) => entry.owner === owner);
-      if (
-        !first ||
-        first.isDrop ||
-        first.pieceType !== type ||
-        !sameSquare(
-          first.from,
-          formationSquare(mirror ? 10 - ff : ff, fr, owner),
-        ) ||
-        !sameSquare(
-          first.to,
-          formationSquare(mirror ? 10 - tf : tf, tr, owner),
-        ) ||
-        (captured !== undefined && first.captured !== captured)
-      )
-        return false;
+    for (const [move, side] of [
+      [conditions.firstMove, owner],
+      [conditions.opponentFirstMove, opponent],
+    ] as const) {
+      if (!move) continue;
+      const first = history.find((entry) => entry.owner === side);
+      if (!first || !moveMatches(first, move, side)) return false;
     }
-    return (conditions.moves ?? []).every(([type, ff, fr, tf, tr, captured]) =>
-      history.some(
-        (entry) =>
-          entry.owner === owner &&
-          entry.pieceType === type &&
-          !entry.isDrop &&
-          sameSquare(
-            entry.from,
-            formationSquare(mirror ? 10 - ff : ff, fr, owner),
-          ) &&
-          sameSquare(
-            entry.to,
-            formationSquare(mirror ? 10 - tf : tf, tr, owner),
-          ) &&
-          (captured === undefined || entry.captured === captured),
-      ),
+    return (conditions.moves ?? []).every((move) =>
+      history.some((entry) => moveMatches(entry, move, owner)),
     );
   };
 }
@@ -283,20 +375,23 @@ export function detectFormations(
     const piece = board[square.r][square.c];
     return piece?.owner === side && piece.type === type && !piece.promoted;
   };
-  for (const formation of detectableFormations) {
-    if (
-      recorded.some(
-        (record) => record.id === formation.id && record.owner === owner,
-      )
-    )
-      continue;
+  // Dependencies match the current position even when already collected or
+  // suppressed. A prior event alone never proves a dependent shape still exists.
+  const matches = new Map<string, FormationEvent | null>();
+  const matchFormation = (formation: Formation): FormationEvent | null => {
+    if (matches.has(formation.id)) return matches.get(formation.id)!;
     const rule = formation.recognition;
-    if (!rule) continue;
+    if (
+      !rule ||
+      (rule.owner !== undefined && rule.owner !== owner) ||
+      (rule.minOwnMoves !== undefined && ownMoves < rule.minOwnMoves)
+    )
+      return null;
     if (
       rule.maxOwnMoves !== undefined &&
       (!ownMoves || ownMoves > rule.maxOwnMoves)
     )
-      continue;
+      return null;
     let match: FormationEvent | undefined;
     for (const mirror of rule.mirror ? [false, true] : [false]) {
       for (const pattern of rule.patterns) {
@@ -304,6 +399,17 @@ export function detectFormations(
           !pattern.pieces.every((piece) => has(piece, owner, mirror)) ||
           !(pattern.opponentPieces ?? []).every((piece) =>
             has(piece, owner === "b" ? "w" : "b", mirror),
+          ) ||
+          !(pattern.emptySquares ?? []).every(([file, rank]) => {
+            const square = formationSquare(
+              mirror ? 10 - file : file,
+              rank,
+              owner,
+            );
+            return board[square.r][square.c] === null;
+          }) ||
+          !(pattern.requires ?? []).every((id) =>
+            matchFormation(byId.get(id)!),
           ) ||
           !(pattern.originals ?? []).every(([, ff, fr, tf, tr]) =>
             sameSquare(
@@ -326,14 +432,22 @@ export function detectFormations(
       }
       if (match) break;
     }
+    matches.set(formation.id, match ?? null);
+    return match ?? null;
+  };
+  for (const formation of detectableFormations) {
+    if (
+      recorded.some(
+        (record) => record.id === formation.id && record.owner === owner,
+      )
+    )
+      continue;
+    const match = matchFormation(formation);
     if (match) candidates.push(match);
   }
   // Prefer a developed form when several match at once. Once a developed form
   // was recorded, dismantling it must not award an earlier stage for the first time.
   const suppressed = new Set<string>();
-  const byId = new Map(
-    formations.map((formation) => [formation.id, formation]),
-  );
   function suppressParents(id: string) {
     for (const parent of byId.get(id)?.supersedes ?? []) {
       if (suppressed.has(parent)) continue;
